@@ -27,6 +27,6 @@ public class ReservationService {
     }
 
     public List<Room> findOrdersIdByDate(LocalDate start, LocalDate end) {
-        return orderRepository.findOrdersIdByDate(start, end);
+        return orderRepository.findNotEmptyRoomByDate(start, end);
     }
 }

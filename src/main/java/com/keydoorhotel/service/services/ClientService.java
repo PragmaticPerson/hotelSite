@@ -18,6 +18,6 @@ public class ClientService {
     }
 
     public Client save(OrderDTO order) {
-        return peopleRepository.save(order.getPeople());
+        return peopleRepository.save(order.getClient());
     }
 }

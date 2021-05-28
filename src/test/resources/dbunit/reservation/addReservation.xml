@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <reservation id='1' client_id='1' people_count='4' settling='2020-05-10' eviction='2020-05-20' />
+    <reservation id='2' client_id='1' people_count='2' settling='2019-01-17' eviction='2019-01-31' />
+    
+    <room_reservation room_id='3' reservation_id='1' />
+    <room_reservation room_id='1' reservation_id='2' />
+    <room_reservation room_id='2' reservation_id='2' />
+</dataset>

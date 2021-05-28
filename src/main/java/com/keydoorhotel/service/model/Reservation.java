@@ -3,7 +3,6 @@ package com.keydoorhotel.service.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,9 +26,9 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client people;
+    private Client client;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "room_reservation", joinColumns = { @JoinColumn(name = "reservation_id") }, inverseJoinColumns = {
             @JoinColumn(name = "room_id") })
     private List<Room> rooms;
@@ -46,8 +45,8 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Client people, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
-        this.people = people;
+    public Reservation(Client client, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
+        this.client = client;
         this.rooms = rooms;
         this.peopleCount = peopleCount;
         this.settling = start;
@@ -62,12 +61,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public Client getPeople() {
-        return people;
+    public Client getClient() {
+        return client;
     }
 
-    public void setPeople(Client people) {
-        this.people = people;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public List<Room> getRooms() {

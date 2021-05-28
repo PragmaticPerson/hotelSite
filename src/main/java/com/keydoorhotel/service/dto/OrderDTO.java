@@ -44,7 +44,7 @@ public class OrderDTO {
         order.setEviction(DateFormatter.getDate(splittedDates[1]));
         order.setPeopleCount(peopleCount);
         order.setRooms(rooms);
-        order.setPeople(client);
+        order.setClient(client);
         return order;
     }
 
@@ -64,11 +64,11 @@ public class OrderDTO {
         this.peopleCount = peopleCount;
     }
 
-    public Client getPeople() {
+    public Client getClient() {
         return client;
     }
 
-    public void setPeople(Client people) {
+    public void setClient(Client people) {
         this.client = people;
     }
 

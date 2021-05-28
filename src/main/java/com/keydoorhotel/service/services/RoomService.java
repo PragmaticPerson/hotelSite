@@ -12,21 +12,20 @@ import com.keydoorhotel.service.model.Room;
 @Component
 public class RoomService {
 
-    private ReservationService orderService;
-    private RoomRepository roomsRepository;
+    private ReservationService reservationService;
+    private RoomRepository roomRepository;
 
     @Autowired
-    public RoomService(ReservationService orderService, RoomRepository roomsRepository) {
-        super();
-        this.orderService = orderService;
-        this.roomsRepository = roomsRepository;
+    public RoomService(ReservationService reservationService, RoomRepository roomRepository) {
+        this.reservationService = reservationService;
+        this.roomRepository = roomRepository;
     }
 
     public List<Room> findRoomsByDate(LocalDate start, LocalDate end) {
-        List<Room> orders = orderService.findOrdersIdByDate(start, end);
-        if (orders.isEmpty()) {
-            return roomsRepository.findAll();
+        List<Room> orderedRooms = reservationService.findOrdersIdByDate(start, end);
+        if (orderedRooms.isEmpty()) {
+            return roomRepository.findAll();
         }
-        return roomsRepository.findEmptyRooms(orders);
+        return roomRepository.findEmptyRooms(orderedRooms);
     }
 }
