@@ -97,9 +97,7 @@ peopleCount.addEventListener('input', function() {
 stageOneButton.addEventListener('click', function() {
     var dates = dateInput.value.split('-');
     var url = '/api/rooms/' + dates[0] + '/' + dates[1];
+    console.log(url);
     
     $('#formTwo').load(url);
 });
-
-
-

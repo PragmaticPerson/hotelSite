@@ -12,7 +12,6 @@ import com.keydoorhotel.service.model.Rooms;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query("SELECT r FROM Rooms r WHERE r NOT IN (SELECT o.rooms FROM Order o "
-            + "WHERE :start BETWEEN o.settling AND o.eviction OR :end BETWEEN o.settling AND o.eviction)")
-    public List<Rooms> findRoomsByDate(@Param("start") LocalDate start, @Param("end") LocalDate end);
+    @Query("SELECT o.rooms FROM Order o WHERE (:start BETWEEN o.settling AND o.eviction) OR (:end BETWEEN o.settling AND o.eviction)")
+    public List<Rooms> findOrdersIdByDate(@Param("start") LocalDate start, @Param("end") LocalDate end);
 }

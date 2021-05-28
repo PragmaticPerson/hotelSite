@@ -17,18 +17,20 @@ import com.keydoorhotel.service.dto.OrderDTO;
 import com.keydoorhotel.service.formatter.DateFormatter;
 import com.keydoorhotel.service.services.OrderService;
 import com.keydoorhotel.service.services.PeopleService;
+import com.keydoorhotel.service.services.RoomsService;
 
 @Controller
 public class BookController {
 
     private OrderService orderService;
     private PeopleService peopleService;
+    private RoomsService roomsService;
 
     @Autowired
-    public BookController(OrderService orderService, PeopleService peopleService) {
-        super();
+    public BookController(OrderService orderService, PeopleService peopleService, RoomsService roomsService) {
         this.orderService = orderService;
         this.peopleService = peopleService;
+        this.roomsService = roomsService;
     }
 
     @GetMapping("/book")
@@ -51,11 +53,11 @@ public class BookController {
     }
 
     @GetMapping("/api/rooms/{start}/{end}")
-    public String getAllRooms(@PathVariable String start, @PathVariable String end, Model model) {
+    public String getAvaliableRoomsByDateGetRequest(@PathVariable String start, @PathVariable String end, Model model) {
         LocalDate startDate = DateFormatter.getDate(start);
         LocalDate endDate = DateFormatter.getDate(end);
         addOrderAttribute(model);
-        model.addAttribute("roomsList", orderService.findRooms(startDate, endDate));
+        model.addAttribute("roomsList", roomsService.findRoomsByDate(startDate, endDate));
         return "fragments/book :: roomsList";
     }
 

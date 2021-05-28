@@ -26,7 +26,7 @@ public class OrderService {
         return orderRepository.save(orderDTO.getOrder());
     }
 
-    public List<Rooms> findRooms(LocalDate start, LocalDate end) {
-        return orderRepository.findRoomsByDate(start, end);
+    public List<Rooms> findOrdersIdByDate(LocalDate start, LocalDate end) {
+        return orderRepository.findOrdersIdByDate(start, end);
     }
 }
