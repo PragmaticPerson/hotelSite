@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "rooms")
-public class Rooms {
+@Table(name = "room")
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,8 @@ public class Rooms {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "src_name")
-    private String src;
+    @Column(name = "source")
+    private String source;
 
     @Column(name = "max_people")
     private int maxPeople;
@@ -28,12 +28,12 @@ public class Rooms {
     @Column(name = "price")
     private int price;
 
-    public Rooms() {
+    public Room() {
     }
 
-    public Rooms(String title, String src, int maxPeople, int price) {
+    public Room(String title, String source, int maxPeople, int price) {
         this.title = title;
-        this.src = src;
+        this.source = source;
         this.maxPeople = maxPeople;
         this.price = price;
     }
@@ -54,12 +54,12 @@ public class Rooms {
         this.title = title;
     }
 
-    public String getSrc() {
-        return src;
+    public String getSource() {
+        return source;
     }
 
-    public void setSrc(String src) {
-        this.src = src;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public int getMaxPeople() {
@@ -80,7 +80,7 @@ public class Rooms {
 
     @Override
     public String toString() {
-        return "Rooms [id=" + id + ", title=" + title + ", src=" + src + ", maxPeople=" + maxPeople + ", price=" + price
+        return "Room [id=" + id + ", title=" + title + ", source=" + source + ", maxPeople=" + maxPeople + ", price=" + price
                 + "]";
     }
 }

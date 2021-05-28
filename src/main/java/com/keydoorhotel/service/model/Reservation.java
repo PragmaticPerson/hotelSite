@@ -17,22 +17,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "reservation")
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orders_id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "people_id", referencedColumnName = "id")
-    private People people;
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client people;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "rooms_orders", joinColumns = { @JoinColumn(name = "orders_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "rooms_id") })
-    private List<Rooms> rooms;
+    @JoinTable(name = "room_reservation", joinColumns = { @JoinColumn(name = "reservation_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "room_id") })
+    private List<Room> rooms;
 
     @Column(name = "people_count")
     private int peopleCount;
@@ -43,10 +43,10 @@ public class Order {
     @Column(name = "eviction")
     private LocalDate eviction;
 
-    public Order() {
+    public Reservation() {
     }
 
-    public Order(People people, List<Rooms> rooms, int peopleCount, LocalDate start, LocalDate end) {
+    public Reservation(Client people, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
         this.people = people;
         this.rooms = rooms;
         this.peopleCount = peopleCount;
@@ -62,19 +62,19 @@ public class Order {
         this.id = id;
     }
 
-    public People getPeople() {
+    public Client getPeople() {
         return people;
     }
 
-    public void setPeople(People people) {
+    public void setPeople(Client people) {
         this.people = people;
     }
 
-    public List<Rooms> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Rooms> rooms) {
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 

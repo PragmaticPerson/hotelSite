@@ -9,9 +9,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.keydoorhotel.service.formatter.DateFormatter;
-import com.keydoorhotel.service.model.Order;
-import com.keydoorhotel.service.model.People;
-import com.keydoorhotel.service.model.Rooms;
+import com.keydoorhotel.service.model.Reservation;
+import com.keydoorhotel.service.model.Client;
+import com.keydoorhotel.service.model.Room;
 
 public class OrderDTO {
     @NotBlank(message = "Dates not valid")
@@ -22,29 +22,29 @@ public class OrderDTO {
     private int peopleCount;
 
     @NotNull
-    private People people;
+    private Client client;
 
     @NotEmpty
-    private List<Rooms> rooms;
+    private List<Room> rooms;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(String dates, int peopleCount, People people, List<Rooms> rooms) {
+    public OrderDTO(String dates, int peopleCount, Client client, List<Room> rooms) {
         this.dates = dates;
         this.peopleCount = peopleCount;
-        this.people = people;
+        this.client = client;
         this.rooms = rooms;
     }
 
-    public Order getOrder() {
-        Order order = new Order();
+    public Reservation getReservation() {
+        Reservation order = new Reservation();
         String[] splittedDates = dates.split("-");
         order.setSettling(DateFormatter.getDate(splittedDates[0]));
         order.setEviction(DateFormatter.getDate(splittedDates[1]));
         order.setPeopleCount(peopleCount);
         order.setRooms(rooms);
-        order.setPeople(people);
+        order.setPeople(client);
         return order;
     }
 
@@ -64,25 +64,25 @@ public class OrderDTO {
         this.peopleCount = peopleCount;
     }
 
-    public People getPeople() {
-        return people;
+    public Client getPeople() {
+        return client;
     }
 
-    public void setPeople(People people) {
-        this.people = people;
+    public void setPeople(Client people) {
+        this.client = people;
     }
 
-    public List<Rooms> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Rooms> rooms) {
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 
     @Override
     public String toString() {
-        return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", people=" + people + ", rooms=" + rooms
+        return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", client=" + client + ", rooms=" + rooms
                 + "]";
     }
 

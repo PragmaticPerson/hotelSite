@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <room id='1' title='Single room' source='single' max_people='1'  price='2400' />
+    <room id='2' title='Double room' source='double' max_people='2'  price='4500' />
+    <room id='3' title='Double room with bunk bed' source='double-eco' max_people='2'  price='4000' />
+    <room id='4' title='Triple room' source='triple' max_people='3'  price='6200' />
+    <room id='5' title='Test room' source='test' max_people='8'  price='10000' />
+</dataset>

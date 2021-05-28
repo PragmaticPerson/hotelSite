@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <room id='1' title='Single room' source='single' max_people='1'  price='2400' />
+    <room id='2' title='Double room' source='double' max_people='2'  price='4500' />
+    <room id='3' title='Double room with bunk bed' source='double-eco' max_people='2'  price='4000' />
+    <room id='4' title='Triple room' source='triple' max_people='3'  price='6200' />
+    
+    <client id='1' name='Name1' surname='Surname1' phone='12345678910' email='some@address.com'/>
+    
+    <reservation id='1' client_id='1' people_count='4' settling='2020-05-10' eviction='2020-05-20' />
+    
+    <room_reservation room_id='3' reservation_id='1' />
+</dataset>

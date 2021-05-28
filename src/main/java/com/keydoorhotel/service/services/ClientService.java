@@ -3,21 +3,21 @@ package com.keydoorhotel.service.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.keydoorhotel.dao.PeopleRepository;
+import com.keydoorhotel.dao.ClientRepository;
 import com.keydoorhotel.service.dto.OrderDTO;
-import com.keydoorhotel.service.model.People;
+import com.keydoorhotel.service.model.Client;
 
 @Component
-public class PeopleService {
+public class ClientService {
 
-    private PeopleRepository peopleRepository;
+    private ClientRepository peopleRepository;
 
     @Autowired
-    public PeopleService(PeopleRepository peopleRepository) {
+    public ClientService(ClientRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
     }
 
-    public People save(OrderDTO order) {
+    public Client save(OrderDTO order) {
         return peopleRepository.save(order.getPeople());
     }
 }

@@ -6,24 +6,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.keydoorhotel.dao.RoomsRepository;
-import com.keydoorhotel.service.model.Rooms;
+import com.keydoorhotel.dao.RoomRepository;
+import com.keydoorhotel.service.model.Room;
 
 @Component
-public class RoomsService {
+public class RoomService {
 
-    private OrderService orderService;
-    private RoomsRepository roomsRepository;
+    private ReservationService orderService;
+    private RoomRepository roomsRepository;
 
     @Autowired
-    public RoomsService(OrderService orderService, RoomsRepository roomsRepository) {
+    public RoomService(ReservationService orderService, RoomRepository roomsRepository) {
         super();
         this.orderService = orderService;
         this.roomsRepository = roomsRepository;
     }
 
-    public List<Rooms> findRoomsByDate(LocalDate start, LocalDate end) {
-        List<Rooms> orders = orderService.findOrdersIdByDate(start, end);
+    public List<Room> findRoomsByDate(LocalDate start, LocalDate end) {
+        List<Room> orders = orderService.findOrdersIdByDate(start, end);
         if (orders.isEmpty()) {
             return roomsRepository.findAll();
         }

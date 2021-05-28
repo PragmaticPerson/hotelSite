@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "people")
-public class People {
+@Table(name = "client")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +33,10 @@ public class People {
     @NotBlank(message = "E-mail not valid")
     private String email;
 
-    public People() {
+    public Client() {
     }
 
-    public People(String name, String surname, String phone, String email) {
+    public Client(String name, String surname, String phone, String email) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
@@ -85,7 +85,7 @@ public class People {
 
     @Override
     public String toString() {
-        return "People [id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email
+        return "Client [id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email
                 + "]";
     }
 
