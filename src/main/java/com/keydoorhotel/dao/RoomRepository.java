@@ -10,6 +10,6 @@ import com.keydoorhotel.service.model.Room;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-    @Query("SELECT r FROM Room r WHERE r NOT IN (:ids)")
-    List<Room> findEmptyRooms(@Param("ids") List<Room> ids);
+	@Query("SELECT r FROM Room r WHERE r NOT IN (:ids)")
+	List<Room> findEmptyRooms(@Param("ids") List<Room> ids);
 }

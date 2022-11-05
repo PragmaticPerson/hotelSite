@@ -14,76 +14,76 @@ import com.keydoorhotel.service.model.Client;
 import com.keydoorhotel.service.model.Room;
 
 public class OrderDTO {
-    @NotBlank(message = "Dates not valid")
-    private String dates;
+	@NotBlank(message = "Dates not valid")
+	private String dates;
 
-    @Min(value = 1, message = "Count of people must be more then 1")
-    @Max(value = 8, message = "Too many people")
-    private int peopleCount;
+	@Min(value = 1, message = "Count of people must be more then 1")
+	@Max(value = 8, message = "Too many people")
+	private int peopleCount;
 
-    @NotNull
-    private Client client;
+	@NotNull
+	private Client client;
 
-    @NotEmpty
-    private List<Room> rooms;
+	@NotEmpty
+	private List<Room> rooms;
 
-    public OrderDTO() {
-    }
+	public OrderDTO() {
+	}
 
-    public OrderDTO(String dates, int peopleCount, Client client, List<Room> rooms) {
-        this.dates = dates;
-        this.peopleCount = peopleCount;
-        this.client = client;
-        this.rooms = rooms;
-    }
+	public OrderDTO(String dates, int peopleCount, Client client, List<Room> rooms) {
+		this.dates = dates;
+		this.peopleCount = peopleCount;
+		this.client = client;
+		this.rooms = rooms;
+	}
 
-    public Reservation getReservation() {
-        Reservation order = new Reservation();
-        String[] splittedDates = dates.split("-");
-        order.setSettling(DateFormatter.getDate(splittedDates[0]));
-        order.setEviction(DateFormatter.getDate(splittedDates[1]));
-        order.setPeopleCount(peopleCount);
-        order.setRooms(rooms);
-        order.setClient(client);
-        return order;
-    }
+	public Reservation getReservation() {
+		Reservation order = new Reservation();
+		String[] splittedDates = dates.split("-");
+		order.setSettling(DateFormatter.getDate(splittedDates[0]));
+		order.setEviction(DateFormatter.getDate(splittedDates[1]));
+		order.setPeopleCount(peopleCount);
+		order.setRooms(rooms);
+		order.setClient(client);
+		return order;
+	}
 
-    public String getDates() {
-        return dates;
-    }
+	public String getDates() {
+		return dates;
+	}
 
-    public void setDates(String dates) {
-        this.dates = dates;
-    }
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
 
-    public int getPeopleCount() {
-        return peopleCount;
-    }
+	public int getPeopleCount() {
+		return peopleCount;
+	}
 
-    public void setPeopleCount(int peopleCount) {
-        this.peopleCount = peopleCount;
-    }
+	public void setPeopleCount(int peopleCount) {
+		this.peopleCount = peopleCount;
+	}
 
-    public Client getClient() {
-        return client;
-    }
+	public Client getClient() {
+		return client;
+	}
 
-    public void setClient(Client people) {
-        this.client = people;
-    }
+	public void setClient(Client people) {
+		this.client = people;
+	}
 
-    public List<Room> getRooms() {
-        return rooms;
-    }
+	public List<Room> getRooms() {
+		return rooms;
+	}
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
 
-    @Override
-    public String toString() {
-        return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", client=" + client + ", rooms=" + rooms
-                + "]";
-    }
+	@Override
+	public String toString() {
+		return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", client=" + client + ", rooms=" + rooms
+				+ "]";
+	}
 
 }

@@ -19,85 +19,85 @@ import javax.persistence.Table;
 @Table(name = "reservation")
 public class Reservation {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
+	@ManyToOne
+	@JoinColumn(name = "client_id", referencedColumnName = "id")
+	private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "room_reservation", joinColumns = { @JoinColumn(name = "reservation_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "room_id") })
-    private List<Room> rooms;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "room_reservation", joinColumns = { @JoinColumn(name = "reservation_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "room_id") })
+	private List<Room> rooms;
 
-    @Column(name = "people_count")
-    private int peopleCount;
+	@Column(name = "people_count")
+	private int peopleCount;
 
-    @Column(name = "settling")
-    private LocalDate settling;
+	@Column(name = "settling")
+	private LocalDate settling;
 
-    @Column(name = "eviction")
-    private LocalDate eviction;
+	@Column(name = "eviction")
+	private LocalDate eviction;
 
-    public Reservation() {
-    }
+	public Reservation() {
+	}
 
-    public Reservation(Client client, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
-        this.client = client;
-        this.rooms = rooms;
-        this.peopleCount = peopleCount;
-        this.settling = start;
-        this.eviction = end;
-    }
+	public Reservation(Client client, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
+		this.client = client;
+		this.rooms = rooms;
+		this.peopleCount = peopleCount;
+		this.settling = start;
+		this.eviction = end;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public Client getClient() {
-        return client;
-    }
+	public Client getClient() {
+		return client;
+	}
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
-    public List<Room> getRooms() {
-        return rooms;
-    }
+	public List<Room> getRooms() {
+		return rooms;
+	}
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
 
-    public int getPeopleCount() {
-        return peopleCount;
-    }
+	public int getPeopleCount() {
+		return peopleCount;
+	}
 
-    public void setPeopleCount(int peopleCount) {
-        this.peopleCount = peopleCount;
-    }
+	public void setPeopleCount(int peopleCount) {
+		this.peopleCount = peopleCount;
+	}
 
-    public LocalDate getSettling() {
-        return settling;
-    }
+	public LocalDate getSettling() {
+		return settling;
+	}
 
-    public void setSettling(LocalDate settling) {
-        this.settling = settling;
-    }
+	public void setSettling(LocalDate settling) {
+		this.settling = settling;
+	}
 
-    public LocalDate getEviction() {
-        return eviction;
-    }
+	public LocalDate getEviction() {
+		return eviction;
+	}
 
-    public void setEviction(LocalDate eviction) {
-        this.eviction = eviction;
-    }
+	public void setEviction(LocalDate eviction) {
+		this.eviction = eviction;
+	}
 }

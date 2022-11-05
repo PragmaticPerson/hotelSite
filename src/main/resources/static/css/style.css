@@ -1,4 +1,4 @@
-ыdiv, header {
+div, header {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -35,6 +35,11 @@ button:focus {
 	transform: scale(0.9, 0.9);
 }
 
+.login-div {
+	display: flex;
+	justify-content: center;
+}
+
 .wrapper {
 	width: 100%;
 	min-height: 100%;
@@ -65,7 +70,14 @@ button:focus {
 	height: 100%;
 	overflow: scroll;
 	overflow-x: hidden;
-	width: 150%;
+	width: 100%;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari, Opera */
+.innerh::-webkit-scrollbar {
+	display: none;
 }
 
 .scrollh {
@@ -74,7 +86,7 @@ button:focus {
 }
 
 .headermenu {
-	top: -70px;
+	top: -85px;
 	left: 30px;
 	position: relative;
 }
@@ -89,6 +101,7 @@ button:focus {
 	position: absolute;
 	top: 20px;
 	left: 0;
+	margin-top: 70px;
 }
 
 .mainmenu li {
@@ -97,7 +110,11 @@ button:focus {
 	padding: 3px 10px;
 }
 
-.mainmenu li a {
+#login-link {
+	z-index: 10;
+}
+
+.mainmenu li a, #login-link {
 	vertical-align: middle;
 	font-family: 'Open Sans', sans-serif;
 	color: black;
@@ -427,6 +444,12 @@ fieldset {
 
 #stage2, #stage3 {
 	margin-left: 10px;
+}
+
+.loginButtonDiv {
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 /*Slider*/

@@ -12,12 +12,12 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 @EntityScan("com.keydoorhotel.service.model")
 public class SpringConfiguration {
 
-    @Bean
-    public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext) {
-        SpringResourceTemplateResolver bean = new SpringResourceTemplateResolver();
-        bean.setApplicationContext(applicationContext);
-        bean.setPrefix("/WEB-INF/views/");
-        bean.setSuffix(".html");
-        return bean;
-    }
+	@Bean
+	public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext) {
+		SpringResourceTemplateResolver bean = new SpringResourceTemplateResolver();
+		bean.setApplicationContext(applicationContext);
+		bean.setPrefix("/WEB-INF/views/");
+		bean.setSuffix(".html");
+		return bean;
+	}
 }

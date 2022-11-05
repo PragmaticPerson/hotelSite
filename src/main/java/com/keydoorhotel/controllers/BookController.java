@@ -23,47 +23,48 @@ import com.keydoorhotel.service.services.RoomService;
 @Controller
 public class BookController {
 
-    private ReservationService reservationService;
-    private ClientService clientService;
-    private RoomService roomService;
+	private ReservationService reservationService;
+	private ClientService clientService;
+	private RoomService roomService;
 
-    @Autowired
-    public BookController(ReservationService reservationService, ClientService clientService, RoomService roomService) {
-        this.reservationService = reservationService;
-        this.clientService = clientService;
-        this.roomService = roomService;
-    }
+	@Autowired
+	public BookController(ReservationService reservationService, ClientService clientService, RoomService roomService) {
+		this.reservationService = reservationService;
+		this.clientService = clientService;
+		this.roomService = roomService;
+	}
 
-    @GetMapping("/book")
-    public String getBookPageGetRequest(Model model) {
-        addOrderAttribute(model);
-        return "book";
-    }
+	@GetMapping("/book")
+	public String getBookPageGetRequest(Model model) {
+		addOrderAttribute(model);
+		return "book";
+	}
 
-    @PostMapping("/book")
-    public String fromBookPagePostRequest(@ModelAttribute("order") @Valid OrderDTO orderDTO, BindingResult result,
-            Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
-            addOrderAttribute(model);
-            return "book";
-        }
-        clientService.save(orderDTO);
-        reservationService.save(orderDTO);
-        return "redirect:/";
-    }
+	@PostMapping("/book")
+	public String fromBookPagePostRequest(@ModelAttribute("order") @Valid OrderDTO orderDTO, BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
+			addOrderAttribute(model);
+			return "book";
+		}
+		clientService.save(orderDTO.getClient());
+		reservationService.save(orderDTO.getReservation());
+		return "redirect:/";
+	}
 
-    @GetMapping("/api/rooms/{start}/{end}")
-    public String getAvaliableRoomsByDateGetRequest(@PathVariable @NotNull String start, @PathVariable @NotNull String end, Model model) {
-        LocalDate startDate = DateFormatter.getDate(start);
-        LocalDate endDate = DateFormatter.getDate(end);
-        addOrderAttribute(model);
-        model.addAttribute("roomsList", roomService.findRoomsByDate(startDate, endDate));
-        return "fragments/book :: roomsList";
-    }
+	@GetMapping("/api/rooms/{start}/{end}")
+	public String getAvaliableRoomsByDateGetRequest(@PathVariable @NotNull String start,
+			@PathVariable @NotNull String end, Model model) {
+		LocalDate startDate = DateFormatter.getDate(start);
+		LocalDate endDate = DateFormatter.getDate(end);
+		addOrderAttribute(model);
+		model.addAttribute("roomsList", roomService.findRoomsByDate(startDate, endDate));
+		return "fragments/book :: roomsList";
+	}
 
-    private void addOrderAttribute(Model model) {
-        model.addAttribute("order", new OrderDTO());
-    }
+	private void addOrderAttribute(Model model) {
+		model.addAttribute("order", new OrderDTO());
+	}
 
 }
