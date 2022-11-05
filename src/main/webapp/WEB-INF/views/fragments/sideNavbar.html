@@ -9,8 +9,18 @@
 				<div class="logo-div">
 					<a href="/" id="logo"><img src="img/knd.png" alt="Logo"></a>
 				</div>
+				<div class="login-div">
+                    <div sec:authorize="!isAuthenticated()">
+                        <a href="/login" id="login-link">Войти</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a href="/login" id="login-link">
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </div>				
+				</div>				
 				<nav class="headermenu">
-					<ul id="mtop" class="mainmenu vert" style="width: 750px;">
+					<ul id="mtop" class="mainmenu vert" style="width: 680px;">
 						<li>
 						    <div class="not-moving-div" style="height: 50px;">
 								<div>
