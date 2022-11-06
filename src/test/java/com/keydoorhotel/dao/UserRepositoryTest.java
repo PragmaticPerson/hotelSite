@@ -15,7 +15,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.keydoorhotel.service.model.Client;
+import com.keydoorhotel.service.model.User;
 
 @DataJpaTest
 @Import(DataSourceConfiguration.class)
@@ -24,20 +24,20 @@ import com.keydoorhotel.service.model.Client;
 @TestExecutionListeners({ SpringBootDependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-class ClientRepositoryTest {
+class UserRepositoryTest {
 
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
     private static final String PATH = "classpath:dbunit/client/";
 
     @Autowired
-    public ClientRepositoryTest(ClientRepository clientRepository) {
+    public UserRepositoryTest(UserRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = PATH + "addClient.xml")
     void addClientTest() {
-        Client client = new Client("Name2", "Surname2", "56575859", "test@test.com");
+        User client = new User("Name2", "Surname2", "56575859", "test@test.com");
         clientRepository.save(client);
     }
 

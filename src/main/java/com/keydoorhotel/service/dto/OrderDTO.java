@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import com.keydoorhotel.service.formatter.DateFormatter;
 import com.keydoorhotel.service.model.Reservation;
-import com.keydoorhotel.service.model.Client;
+import com.keydoorhotel.service.model.User;
 import com.keydoorhotel.service.model.Room;
 
 public class OrderDTO {
@@ -22,7 +22,7 @@ public class OrderDTO {
 	private int peopleCount;
 
 	@NotNull
-	private Client client;
+	private User user;
 
 	@NotEmpty
 	private List<Room> rooms;
@@ -30,10 +30,10 @@ public class OrderDTO {
 	public OrderDTO() {
 	}
 
-	public OrderDTO(String dates, int peopleCount, Client client, List<Room> rooms) {
+	public OrderDTO(String dates, int peopleCount, User user, List<Room> rooms) {
 		this.dates = dates;
 		this.peopleCount = peopleCount;
-		this.client = client;
+		this.user = user;
 		this.rooms = rooms;
 	}
 
@@ -44,7 +44,7 @@ public class OrderDTO {
 		order.setEviction(DateFormatter.getDate(splittedDates[1]));
 		order.setPeopleCount(peopleCount);
 		order.setRooms(rooms);
-		order.setClient(client);
+		order.setUser(user);
 		return order;
 	}
 
@@ -64,12 +64,12 @@ public class OrderDTO {
 		this.peopleCount = peopleCount;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client people) {
-		this.client = people;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Room> getRooms() {
@@ -82,7 +82,7 @@ public class OrderDTO {
 
 	@Override
 	public String toString() {
-		return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", client=" + client + ", rooms=" + rooms
+		return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", user=" + user + ", rooms=" + rooms
 				+ "]";
 	}
 

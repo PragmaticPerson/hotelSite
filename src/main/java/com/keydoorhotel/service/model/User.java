@@ -19,8 +19,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "client")
-public class Client implements UserDetails {
+@Table(name = "s_user")
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,15 +48,15 @@ public class Client implements UserDetails {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "client_roles", 
-			joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id"), 
+			name = "user_roles", 
+			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles;
 
-	public Client() {
+	public User() {
 	}
 
-	public Client(String name, String surname, String phone, String email) {
+	public User(String name, String surname, String phone, String email) {
 		this.name = name;
 		this.surname = surname;
 		this.phone = phone;
@@ -117,7 +117,7 @@ public class Client implements UserDetails {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email
+		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email
 				+ "]";
 	}
 

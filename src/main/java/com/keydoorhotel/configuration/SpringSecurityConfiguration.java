@@ -9,14 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.keydoorhotel.service.services.ClientService;
+import com.keydoorhotel.service.services.UserService;
 
 @SpringBootConfiguration
 @EnableWebSecurity
 public class SpringSecurityConfiguration {
 
 	@Autowired
-	private ClientService service;
+	private UserService service;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

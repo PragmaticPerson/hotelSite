@@ -1,8 +1,11 @@
 package com.keydoorhotel.configuration;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 public class SpringMVCConfiguration implements WebMvcConfigurer {
@@ -19,5 +22,14 @@ public class SpringMVCConfiguration implements WebMvcConfigurer {
 		registry.addViewController("/rooms/double").setViewName("roomType/double");
 		registry.addViewController("/rooms/double-eco").setViewName("roomType/double-eco");
 		registry.addViewController("/rooms/triple").setViewName("roomType/triple");
+	}
+
+	@Bean
+	public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext) {
+		SpringResourceTemplateResolver bean = new SpringResourceTemplateResolver();
+		bean.setApplicationContext(applicationContext);
+		bean.setPrefix("/WEB-INF/views/");
+		bean.setSuffix(".html");
+		return bean;
 	}
 }

@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS room_reservation CASCADE;
 DROP TABLE IF EXISTS reservation CASCADE;
 DROP TABLE IF EXISTS room CASCADE;
-DROP TABLE IF EXISTS client_roles CASCADE;
-DROP TABLE IF EXISTS client CASCADE;
+DROP TABLE IF EXISTS user_roles CASCADE;
+DROP TABLE IF EXISTS s_user CASCADE;
 DROP TABLE IF EXISTS s_role CASCADE;
 CREATE TABLE room
 (
@@ -12,7 +12,7 @@ CREATE TABLE room
    max_people INTEGER,
    price INTEGER
 );
-CREATE TABLE client
+CREATE TABLE s_user
 (
    id SERIAL PRIMARY KEY,
    password CHARACTER VARYING (60) NOT NULL,
@@ -26,22 +26,22 @@ CREATE TABLE s_role
    id SERIAL PRIMARY KEY,
    name CHARACTER VARYING(10) NOT NULL
 );
-CREATE TABLE client_roles
+CREATE TABLE user_roles
 (
-   client_id INTEGER,
+   user_id INTEGER,
    role_id INTEGER,
-   PRIMARY KEY (client_id, role_id),
-   FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE,
+   PRIMARY KEY (user_id, role_id),
+   FOREIGN KEY (user_id) REFERENCES s_user (id) ON DELETE CASCADE,
    FOREIGN KEY (role_id) REFERENCES s_role (id) ON DELETE CASCADE
 );
 CREATE TABLE reservation
 (
    id SERIAL PRIMARY KEY,
-   client_id INTEGER DEFAULT NULL,
+   user_id INTEGER DEFAULT NULL,
    people_count INTEGER DEFAULT NULL,
    settling DATE,
    eviction DATE,
-   CONSTRAINT client_fk FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE SET DEFAULT
+   CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES s_user (id) ON DELETE SET DEFAULT
 );
 CREATE TABLE room_reservation
 (

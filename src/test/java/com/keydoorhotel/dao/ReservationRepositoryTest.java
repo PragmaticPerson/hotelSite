@@ -22,7 +22,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.keydoorhotel.service.model.Client;
+import com.keydoorhotel.service.model.User;
 import com.keydoorhotel.service.model.Reservation;
 import com.keydoorhotel.service.model.Room;
 
@@ -50,12 +50,12 @@ class ReservationRepositoryTest {
         first.setId(1);
         Room second = new Room();
         second.setId(2);
-        Client client = new Client();
+        User client = new User();
         client.setId(1);
 
         Reservation reservation = new Reservation();
         reservation.setRooms(Arrays.asList(first, second));
-        reservation.setClient(client);
+        reservation.setUser(client);
         reservation.setPeopleCount(2);
         reservation.setSettling(LocalDate.parse("2019-01-17"));
         reservation.setEviction(LocalDate.parse("2019-01-31"));

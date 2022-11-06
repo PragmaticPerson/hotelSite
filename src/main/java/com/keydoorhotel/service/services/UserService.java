@@ -9,31 +9,33 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.keydoorhotel.dao.ClientRepository;
-import com.keydoorhotel.service.model.Client;
+import com.keydoorhotel.dao.UserRepository;
+import com.keydoorhotel.service.model.User;
 import com.keydoorhotel.service.model.Role;
 
 @Service
-public class ClientService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
-	private ClientRepository repository;
+	private static final String ROLE_USER = "ROLE_USER";
+
+	private UserRepository repository;
 	private BCryptPasswordEncoder encoder;
 
 	@Autowired
-	public ClientService(ClientRepository repository) {
+	public UserService(UserRepository repository) {
 		this.repository = repository;
 		encoder = new BCryptPasswordEncoder();
 	}
 
-	public Client save(Client client) {
-		client.setPassword(encoder.encode(CustomPasswordGenerator.generate()));
-		client.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-		return repository.save(client);
+	public User save(User user) {
+		user.setPassword(encoder.encode(CustomPasswordGenerator.generate()));
+		user.setRoles(Collections.singleton(new Role(2L, ROLE_USER)));
+		return repository.save(user);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Client client = repository.findByEmail(email);
+		User client = repository.findByEmail(email);
 		if (client == null) {
 			throw new UsernameNotFoundException("No user found with email: " + email);
 		}

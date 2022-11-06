@@ -18,9 +18,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.keydoorhotel.service.dto.OrderDTO;
-import com.keydoorhotel.service.model.Client;
+import com.keydoorhotel.service.model.User;
 import com.keydoorhotel.service.model.Room;
-import com.keydoorhotel.service.services.ClientService;
+import com.keydoorhotel.service.services.UserService;
 import com.keydoorhotel.service.services.ReservationService;
 import com.keydoorhotel.service.services.RoomService;
 
@@ -32,7 +32,7 @@ class BookControllerTest {
     @MockBean
     private ReservationService reservationService;
     @MockBean
-    private ClientService clientService;
+    private UserService clientService;
     @MockBean
     private RoomService roomService;
 
@@ -49,7 +49,7 @@ class BookControllerTest {
 
     @Test
     void fromBookPagePostRequestTestWhenAttributeValid() throws Exception {
-        Client client = new Client("Name", "Surname", "8989676767", "address@mail.com");
+        User client = new User("Name", "Surname", "8989676767", "address@mail.com");
         List<Room> rooms = Arrays.asList(new Room("Single", "single", 1, 3000));
         OrderDTO order = new OrderDTO("05.08.2020-10.08.2020", 1, client, rooms);
         mvc.perform(post("/book").flashAttr("order", order)).andExpect(redirectedUrl("/"));
@@ -60,7 +60,7 @@ class BookControllerTest {
 
     @Test
     void fromBookPagePostRequestTestWhenAttributeNotValid() throws Exception {
-        Client client = new Client("", "", "", "");
+        User client = new User("", "", "", "");
         List<Room> rooms = Arrays.asList(new Room("Single", "single", 1, 3000));
         OrderDTO order = new OrderDTO("05.08.2020-10.08.2020", 100, client, rooms);
         mvc.perform(post("/book").flashAttr("order", order)).andExpect(model().attributeExists("error"))

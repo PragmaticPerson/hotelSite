@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.keydoorhotel.service.dto.OrderDTO;
 import com.keydoorhotel.service.formatter.DateFormatter;
 import com.keydoorhotel.service.services.ReservationService;
-import com.keydoorhotel.service.services.ClientService;
+import com.keydoorhotel.service.services.UserService;
 import com.keydoorhotel.service.services.RoomService;
 
 @Controller
 public class BookController {
 
 	private ReservationService reservationService;
-	private ClientService clientService;
+	private UserService userService;
 	private RoomService roomService;
 
 	@Autowired
-	public BookController(ReservationService reservationService, ClientService clientService, RoomService roomService) {
+	public BookController(ReservationService reservationService, UserService userService, RoomService roomService) {
 		this.reservationService = reservationService;
-		this.clientService = clientService;
+		this.userService = userService;
 		this.roomService = roomService;
 	}
 
@@ -48,7 +48,7 @@ public class BookController {
 			addOrderAttribute(model);
 			return "book";
 		}
-		clientService.save(orderDTO.getClient());
+		userService.save(orderDTO.getUser());
 		reservationService.save(orderDTO.getReservation());
 		return "redirect:/";
 	}

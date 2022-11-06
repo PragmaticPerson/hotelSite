@@ -24,21 +24,21 @@
         <div class="row"> 
             <div class="col-12 col-md-6">
                 <label>Имя:</label><br>
-                <input class="w-100" type="text" th:field="${order.client.name}" required>
+                <input class="w-100" type="text" th:field="${order.user.name}" required>
             </div> 
             <div class="col-12 col-md-6">
                 <label>Фамилия:</label><br>
-                <input class="w-100" type="text" th:field="${order.client.surname}" required>
+                <input class="w-100" type="text" th:field="${order.user.surname}" required>
             </div>        
         </div>
         <div class="row"> 
             <div class="col-12 col-md-6">
                 <label>Почта:</label><br>
-                <input class="w-100" type="email" th:field="${order.client.email}" placeholder="smth@gmail.com" required>
+                <input class="w-100" type="email" th:field="${order.user.email}" placeholder="smth@gmail.com" required>
             </div> 
             <div class="col-12 col-md-6">
                 <label>Телефон:</label><br>
-                <input class="w-100" type="tel" th:field="${order.client.phone}" placeholder="+7-777-777-77-77" required>
+                <input class="w-100" type="tel" th:field="${order.user.phone}" placeholder="+7-777-777-77-77" required>
             </div>        
         </div>        
         <div class="row">

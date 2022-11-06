@@ -73,7 +73,7 @@
 
         <div id="main_content">
             <div class="bg-image-container">
-                <div class="booking-window">
+                <div class="booking-window container">
                     <div class="form">
                         <form id="mainForm" name="loginForm" action="#" th:action="@{/login}" method="POST">
                             <div id="loginForm" class="mx-4 my-2">
@@ -83,16 +83,14 @@
                                 <div class="row bg-warning" th:if="${error != null}">
                                     <span th:text="${error}"></span>
                                 </div>
-                                <div class="row my-2">
-                                    <div class="manage-div col-6 m-4" >
+                                <div class="row my-2 justify-content-center">
+                                    <div class="manage-div mx-1" >
                                         <p>E-mail:</p>
-                                        <input type="email" class="datepicker-here name-input" id="username" name="username" required="required"/> 
+                                        <input type="email" class="w-100" id="username" name="username" required="required"/> 
                                     </div>
-                                    <div class="manage-div col-6 m-4">
-                                        <div class="d-inline-block w-100">
-                                            <p>Пароль:</p>
-                                            <input type="password" class="w-100" id="password" name="password" required="required"/>
-                                        </div>
+                                    <div class="manage-div mx-1">
+                                        <p>Пароль:</p>
+                                        <input type="password" class="w-100" id="password" name="password" required="required"/>
                                     </div>
                                 </div>
                                 <div class="loginButtonDiv">

@@ -25,8 +25,8 @@ public class Reservation {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "client_id", referencedColumnName = "id")
-	private Client client;
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User user;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "room_reservation", joinColumns = { @JoinColumn(name = "reservation_id") }, inverseJoinColumns = {
@@ -45,8 +45,8 @@ public class Reservation {
 	public Reservation() {
 	}
 
-	public Reservation(Client client, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
-		this.client = client;
+	public Reservation(User user, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
+		this.user = user;
 		this.rooms = rooms;
 		this.peopleCount = peopleCount;
 		this.settling = start;
@@ -61,12 +61,12 @@ public class Reservation {
 		this.id = id;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Room> getRooms() {
