@@ -18,17 +18,21 @@ public class UserService implements UserDetailsService {
 
 	private static final String ROLE_USER = "ROLE_USER";
 
+	private EmailServiceImpl emailService;
 	private UserRepository repository;
 	private BCryptPasswordEncoder encoder;
 
 	@Autowired
-	public UserService(UserRepository repository) {
+	public UserService(EmailServiceImpl emailService, UserRepository repository) {
+		this.emailService = emailService;
 		this.repository = repository;
 		encoder = new BCryptPasswordEncoder();
 	}
 
 	public User save(User user) {
-		user.setPassword(encoder.encode(CustomPasswordGenerator.generate()));
+		String password = CustomPasswordGenerator.generate();
+		emailService.prepareToSendMessage(user.getEmail(), password);
+		user.setPassword(encoder.encode(password));
 		user.setRoles(Collections.singleton(new Role(2L, ROLE_USER)));
 		return repository.save(user);
 	}
