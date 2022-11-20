@@ -1,6 +1,7 @@
 package com.keydoorhotel.service.model;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -47,16 +48,29 @@ public class User implements UserDetails {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "user_roles", 
-			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
-			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles;
 
 	public User() {
 	}
 
-	public User(String name, String surname, String phone, String email) {
+	public User(int id, @NotBlank(message = "Surname cannot be empty") String name,
+			@NotBlank(message = "Surname cannot be empty") String surname,
+			@NotBlank(message = "Phone not valid") String phone, @NotBlank(message = "E-mail not valid") String email,
+			String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.phone = phone;
+		this.email = email;
+		this.password = password;
+	}
+
+	public User(@NotBlank(message = "Surname cannot be empty") String name,
+			@NotBlank(message = "Surname cannot be empty") String surname,
+			@NotBlank(message = "Phone not valid") String phone, @NotBlank(message = "E-mail not valid") String email) {
+		super();
 		this.name = name;
 		this.surname = surname;
 		this.phone = phone;
@@ -103,10 +117,6 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -115,10 +125,33 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id, name, password, phone, roles, surname);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && id == other.id && Objects.equals(name, other.name)
+				&& Objects.equals(password, other.password) && Objects.equals(phone, other.phone)
+				&& Objects.equals(roles.size(), other.roles.size()) && Objects.equals(surname, other.surname);
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", email=" + email
-				+ "]";
+				+ ", password=" + password + ", roles=" + roles + "]";
 	}
 
 	@Override
@@ -133,7 +166,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return getEmail();
 	}
 
 	@Override

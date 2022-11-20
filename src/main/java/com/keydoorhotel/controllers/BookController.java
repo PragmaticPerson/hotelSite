@@ -2,6 +2,7 @@ package com.keydoorhotel.controllers;
 
 import java.time.LocalDate;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -42,13 +43,13 @@ public class BookController {
 
 	@PostMapping("/book")
 	public String fromBookPagePostRequest(@ModelAttribute("order") @Valid OrderDTO orderDTO, BindingResult result,
-			Model model) {
+			Model model) throws MessagingException {
 		if (result.hasErrors()) {
 			model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
 			addOrderAttribute(model);
 			return "book";
 		}
-		userService.save(orderDTO.getUser());
+		userService.createUser(orderDTO.getUser());
 		reservationService.save(orderDTO.getReservation());
 		return "redirect:/";
 	}

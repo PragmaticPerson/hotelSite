@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" lang="en">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 <body>
 	<header class="header floating d-none d-lg-block" th:fragment="navbar (page)">
 		<div class="innerh">
 			<div class="scrollh" style="min-height: 810px;">
 				<div class="logo-div">
-					<a href="/" id="logo"><img src="img/knd.png" alt="Logo"></a>
+					<a href="/" id="logo"><img src="/img/knd.png" alt="Logo"></a>
 				</div>
 				<div class="login-div">
                     <div sec:authorize="!isAuthenticated()">

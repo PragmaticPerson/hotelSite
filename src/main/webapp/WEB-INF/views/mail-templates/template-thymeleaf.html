@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<p>Вы зарегистрировались на сайте keyAndDoor.ru. Для доступа к аккаунту воспользуйтесь вашей почтой и паролем 
+		<span th:text="${pass}"></span>
+	</p>
+	<a th:href="${passChangeUrl}">Сменить пароль</a><span>. Смена пароля по ссылке доступна в течение 24 часов.</span>
+</body>
+</html>

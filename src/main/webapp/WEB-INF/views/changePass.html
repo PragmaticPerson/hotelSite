@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Book a room</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link
@@ -106,7 +106,7 @@
 					<div class="booking-window container">
 						<div class="form">
 							<form id="mainForm" name="loginForm" action="#"
-								th:action="@{/login}" method="POST">
+								th:action="@{/password/change}" method="POST">
 								<div id="loginForm" class="mx-4 my-2">
 									<div class="title">
 										<h1 class="header-text">
@@ -121,14 +121,23 @@
 									</div>
 									<div class="row my-2 justify-content-center">
 										<div class="manage-div mx-1">
-											<p>E-mail:</p>
-											<input type="email" class="w-100" id="username"
-												name="username" required="required" />
+											<p>Старый пароль</p>
+											<input type="password" class="w-100" id="oldpassword"
+												name="oldpassword" required="required" />
 										</div>
 										<div class="manage-div mx-1">
-											<p>Пароль:</p>
+											<p>Новый пароль:</p>
 											<input type="password" class="w-100" id="password"
 												name="password" required="required" />
+										</div>
+										<div class="manage-div mx-1">
+											<p>Новый пароль еще раз:</p>
+											<input type="password" class="w-100" id="passConfirm"
+												name="passConfirm" required="required" />
+										</div>
+										<div class="d-none">
+											<input type="text" id="token" name="token"
+												th:value="${param.token[0]}" />
 										</div>
 									</div>
 									<div class="loginButtonDiv">

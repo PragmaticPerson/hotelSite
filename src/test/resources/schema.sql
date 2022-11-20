@@ -21,16 +21,28 @@ CREATE TABLE s_user
    phone CHARACTER VARYING (15) DEFAULT NULL,
    email CHARACTER VARYING (50) DEFAULT NULL
 );
+CREATE TABLE reset_token
+(
+   id SERIAL PRIMARY KEY,
+   token CHARACTER VARYING (36) NOT NULL,
+   user_id INTEGER,
+   expiry_date TIMESTAMP,
+   FOREIGN KEY (user_id) REFERENCES s_user (id) ON DELETE CASCADE
+);
 CREATE TABLE s_role
 (
    id SERIAL PRIMARY KEY,
-   name CHARACTER VARYING(10) NOT NULL
+   name CHARACTER VARYING (10) NOT NULL
 );
 CREATE TABLE user_roles
 (
    user_id INTEGER,
    role_id INTEGER,
-   PRIMARY KEY (user_id, role_id),
+   PRIMARY KEY
+   (
+      user_id,
+      role_id
+   ),
    FOREIGN KEY (user_id) REFERENCES s_user (id) ON DELETE CASCADE,
    FOREIGN KEY (role_id) REFERENCES s_role (id) ON DELETE CASCADE
 );
@@ -90,7 +102,5 @@ VALUES
    3,
    6200
 );
-
-INSERT INTO s_role
-( name ) VALUES
-('ADMIN'), ('USER');
+INSERT INTO s_role (name) VALUES ('ADMIN'),
+('USER');

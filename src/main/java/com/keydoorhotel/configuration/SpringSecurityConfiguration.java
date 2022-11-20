@@ -15,20 +15,26 @@ import com.keydoorhotel.service.services.UserService;
 @EnableWebSecurity
 public class SpringSecurityConfiguration {
 
-	@Autowired
 	private UserService service;
+
+	@Autowired
+	public SpringSecurityConfiguration(UserService service) {
+		super();
+		this.service = service;
+	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/admin").hasRole("ADMIN")
+				.antMatchers("/logout").authenticated()
 				.anyRequest().permitAll()
 			)
 			.formLogin((form) -> form
 				.loginPage("/login")
-				.permitAll()
 				.loginProcessingUrl("/login")
+				.permitAll()
 			)
 			.logout((logout) -> logout.permitAll());
 
