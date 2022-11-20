@@ -1,30 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="UTF-8">
-<title>Login</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="../dist/css/datepicker.min.css" rel="stylesheet"
-	type="text/css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../dist/js/datepicker.js"></script>
-<style>
-.row {
-	margin: 0 0;
-}
-</style>
+<head th:include="fragments/head :: headFragment">
+	<title id="pageTitle">Login page</title>
+	<style>
+		.row {
+			margin: 0 0;
+		}
+	</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -34,11 +16,9 @@
 
 			<div class="mobileMenu d-block d-lg-none">
 				<div class="mobileButtonDiv" style="display: flex;">
-					<a id="mobile-button" style="margin: 0 20px;"> <svg
-							xmlns="http://www.w3.org/2000/svg" id="Layer_1"
-							style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502"
-							x="0px" y="0px" xmlns:xml="http://www.w3.org/XML/1998/namespace"
-							xml:space="preserve" version="1.1">
+					<a id="mobile-button" style="margin: 0 20px;">
+						<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502" x="0px" y="0px"
+							xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
                         <g>
                         <g>
                             <g>
@@ -68,34 +48,49 @@
                         </g>
                         </svg>
 					</a>
-					<div id="mobileLogo"
-						style="display: none; margin: 22px 20px 20px 20px;">
-						<a href="../index.html"><img src="../img/knd.png" alt="logo"></a>
+					<div id="mobileLogo" style="display: none; margin: 22px 20px 20px 20px;">
+						<a href="../index.html">
+							<img src="../img/knd.png" alt="logo">
+						</a>
 					</div>
 				</div>
 
 				<div id="mobileMenuDown" style="display: none;">
 					<ul>
-						<li><div class="mobile m-rooms">
+						<li>
+							<div class="mobile m-rooms">
 								<a href="/rooms">Номера</a>
-							</div></li>
-						<li><div class="mobile m-setings">
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-setings">
 								<a href="/services">Подробнее</a>
-							</div></li>
-						<li><div class="mobile m-photos">
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-photos">
 								<a href="/photos">Фотографии</a>
-							</div></li>
-						<li><div class="mobile m-location">
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-location">
 								<a href="/location">Расположение</a>
-							</div></li>
-						<li><div class="mobile m-booking">
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-booking">
 								<a href="/book">Забронировать</a>
-							</div></li>
+							</div>
+						</li>
 					</ul>
 					<div class="m-social">
-						<a href="https://vk.com/pragmatic_person" id="vk"><i
-							class="fa fa-vk"></i></a><br> <a href="" id="inst"><i
-							class="fa fa-instagram"></i></a>
+						<a href="https://vk.com/pragmatic_person" id="vk">
+							<i class="fa fa-vk"></i>
+						</a>
+						<br>
+						<a href="" id="inst">
+							<i class="fa fa-instagram"></i>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -105,15 +100,13 @@
 				<div class="bg-image-container">
 					<div class="booking-window container">
 						<div class="form">
-							<form id="mainForm" name="loginForm" action="#"
-								th:action="@{/login}" method="POST">
+							<form id="mainForm" name="loginForm" action="#" th:action="@{/login}" method="POST">
 								<div id="loginForm" class="mx-4 my-2">
 									<div class="title">
 										<h1 class="header-text">
-											<img src="../img/star.png" alt="star"
-												style="margin: 10px; vertical-align: top;">Key And
-											Door Hotel<img src="../img/star.png" alt="star"
-												style="margin: 10px; vertical-align: top;">
+											<img src="../img/star.png" alt="star" style="margin: 10px; vertical-align: top;">
+											Key And Door Hotel
+											<img src="../img/star.png" alt="star" style="margin: 10px; vertical-align: top;">
 										</h1>
 									</div>
 									<div class="row bg-warning" th:if="${param.error}">
@@ -122,13 +115,11 @@
 									<div class="row my-2 justify-content-center">
 										<div class="manage-div mx-1">
 											<p>E-mail:</p>
-											<input type="email" class="w-100" id="username"
-												name="username" required="required" />
+											<input type="email" class="w-100" id="username" name="username" required="required" />
 										</div>
 										<div class="manage-div mx-1">
 											<p>Пароль:</p>
-											<input type="password" class="w-100" id="password"
-												name="password" required="required" />
+											<input type="password" class="w-100" id="password" name="password" required="required" />
 										</div>
 									</div>
 									<div class="loginButtonDiv">

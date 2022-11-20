@@ -1,92 +1,36 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Key'n'Door Hotel - Двухместный номер. Описание</title>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="fragments/head :: headFragment">
+	<title id="pageTitle">Key'n'Door Hotel - Двухместный номер. Описание</title>
 </head>
 <body>
 	<div class="wrapper">
 		<main class="content course">
-			<header class="header floating d-none d-lg-block">
-                <div class="innerh">
-                    <div class="scrollh" style="min-height: 810px;">
-                        <div class="logo-div"><a href="/" id="logo"><img src="../img/knd.png" alt="Logo"></a></div>
-                        <nav class="headermenu">
-                            <ul id="mtop" class="mainmenu vert" style="width: 750px;">
-                                <li><div class="not-moving-div" style="height: 50px;"><a href="/book">Забронировать</a></div></li>
-                                <li>
-                                    <div class="moving-div">
-                                        <a href="/location">
-                                            <span class="mooving">Расположение</span>
-                                            <svg class="svg-icon" viewBox="0 0 20 20" style="position: absolute; left: 40px;">
-                                                <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="moving-div">
-                                        <a href="/photo">
-                                            <span class="mooving">Фотографии</span>
-                                            <svg class="svg-icon" viewBox="0 0 20 20" style="position: absolute; left: 30px;">
-                                                <path d="M10,6.536c-2.263,0-4.099,1.836-4.099,4.098S7.737,14.732,10,14.732s4.099-1.836,4.099-4.098S12.263,6.536,10,6.536M10,13.871c-1.784,0-3.235-1.453-3.235-3.237S8.216,7.399,10,7.399c1.784,0,3.235,1.452,3.235,3.235S11.784,13.871,10,13.871M17.118,5.672l-3.237,0.014L12.52,3.697c-0.082-0.105-0.209-0.168-0.343-0.168H7.824c-0.134,0-0.261,0.062-0.343,0.168L6.12,5.686H2.882c-0.951,0-1.726,0.748-1.726,1.699v7.362c0,0.951,0.774,1.725,1.726,1.725h14.236c0.951,0,1.726-0.773,1.726-1.725V7.195C18.844,6.244,18.069,5.672,17.118,5.672 M17.98,14.746c0,0.477-0.386,0.861-0.862,0.861H2.882c-0.477,0-0.863-0.385-0.863-0.861V7.384c0-0.477,0.386-0.85,0.863-0.85l3.451,0.014c0.134,0,0.261-0.062,0.343-0.168l1.361-1.989h3.926l1.361,1.989c0.082,0.105,0.209,0.168,0.343,0.168l3.451-0.014c0.477,0,0.862,0.184,0.862,0.661V14.746z"></path>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="moving-div">
-                                        <a href="/services">
-                                            <span class="mooving">Подробнее</span>
-                                            <svg class="svg-icon" viewBox="0 0 20 20 " style="position: absolute; left: 25px;">
-                                                <path d="M15.396,2.292H4.604c-0.212,0-0.385,0.174-0.385,0.386v14.646c0,0.212,0.173,0.385,0.385,0.385h10.792c0.211,0,0.385-0.173,0.385-0.385V2.677C15.781,2.465,15.607,2.292,15.396,2.292 M15.01,16.938H4.99v-2.698h1.609c0.156,0.449,0.586,0.771,1.089,0.771c0.638,0,1.156-0.519,1.156-1.156s-0.519-1.156-1.156-1.156c-0.503,0-0.933,0.321-1.089,0.771H4.99v-3.083h1.609c0.156,0.449,0.586,0.771,1.089,0.771c0.638,0,1.156-0.518,1.156-1.156c0-0.638-0.519-1.156-1.156-1.156c-0.503,0-0.933,0.322-1.089,0.771H4.99V6.531h1.609C6.755,6.98,7.185,7.302,7.688,7.302c0.638,0,1.156-0.519,1.156-1.156c0-0.638-0.519-1.156-1.156-1.156c-0.503,0-0.933,0.322-1.089,0.771H4.99V3.062h10.02V16.938z M7.302,13.854c0-0.212,0.173-0.386,0.385-0.386s0.385,0.174,0.385,0.386s-0.173,0.385-0.385,0.385S7.302,14.066,7.302,13.854 M7.302,10c0-0.212,0.173-0.385,0.385-0.385S8.073,9.788,8.073,10s-0.173,0.385-0.385,0.385S7.302,10.212,7.302,10 M7.302,6.146c0-0.212,0.173-0.386,0.385-0.386s0.385,0.174,0.385,0.386S7.899,6.531,7.688,6.531S7.302,6.358,7.302,6.146"></path>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="moving-div" style="top: -5px; position: absolute;">
-                                        <a href="/rooms">
-                                            <svg class="svg-icon" viewBox="0 0 390 390" style="margin-left: 10px;">
-                                                <path xmlns="http://www.w3.org/2000/svg" d="M337.6,158.6v-0.4V97.8c0-27.2-19.2-37.2-37.2-37.2h-228c-18,0-37.2,9.6-37.2,37.2v60.4v0.4c-18,2-35.2,14-35.2,41.6v47.2    c0,8,6.4,14.4,14.4,14.4h4.8V299c0,8,6.4,14.4,14.4,14.4h13.6c8,0,14.4-6.4,14.4-14.4v-37.6h250.8V299c0,8,6.4,14.4,14.4,14.4    h13.6c8,0,14.4-6.4,14.4-14.4v-37.6h4.8c8,0,14.4-6.4,14.4-14.4v-46.8C372.8,172.6,355.6,160.6,337.6,158.6z M48.8,97.8h0.8    C49.6,79,62,75,72.4,75h228c10.4,0,22.8,4,22.8,22.8v60.4h-10.8v-34.4c0-8-6.4-14.4-14.4-14.4h-88c-8,0-14.4,6.4-14.4,14.4v34.4    h-16.8v-34.4c0-8-6.4-14.4-14.4-14.4h-88c-8,0-14.4,6.4-14.4,14.4v34.4H48.8V97.8z M298,123.8v34.4h-88v-34.4H298z M165.2,123.8    v34.4h-88v-34.4H165.2z M46.8,299H33.2v-37.6h13.6V299z M339.6,299H326v-37.6h13.6V299z M358.4,247.4h-18.8H326H46.8H33.2H14    v-21.2h344.4V247.4z M358.4,211.8H14v-11.6c0-24,17.6-27.6,27.6-27.6h7.6h27.6h88H210h88h25.2h7.6c10.4,0,27.6,3.6,27.6,27.6    V211.8z"/>
-                                            </svg>
-                                            <span class="re-mooving">Номера</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div class="social">
-                            <a href="https://vk.com/pragmatic_person" id="vk"><i class="fa fa-vk"></i></a><br>
-                            <a href="" id="inst"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </header>
+
+			<header th:insert="fragments/sideNavbar :: navbar (page='rooms')"></header>
+
 			<div class="mobileMenu d-block d-lg-none">
 				<div class="mobileButtonDiv" style="display: flex;">
 					<a id="mobile-button" style="margin: 0 20px;">
-						<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0 ;" viewBox="0 0 502 502" x="0px" y="0px" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
+						<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502" x="0px" y="0px"
+							xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
 						<g>
 						<g>
 							<g>
-								<path d="M 445.317 143.126 H 56.683 C 25.428 143.126 0 117.698 0 86.443 C 0 55.188 25.428 29.76 56.683 29.76 h 388.635 C 476.572 29.76 502 55.188 502 86.443 C 502 117.698 476.572 143.126 445.317 143.126 Z M 56.683 49.76 C 36.456 49.76 20 66.216 20 86.443 s 16.456 36.683 36.683 36.683 h 388.635 c 20.227 0 36.683 -16.456 36.683 -36.683 S 465.544 49.76 445.317 49.76 H 56.683 Z" />
+								<path
+								d="M 445.317 143.126 H 56.683 C 25.428 143.126 0 117.698 0 86.443 C 0 55.188 25.428 29.76 56.683 29.76 h 388.635 C 476.572 29.76 502 55.188 502 86.443 C 502 117.698 476.572 143.126 445.317 143.126 Z M 56.683 49.76 C 36.456 49.76 20 66.216 20 86.443 s 16.456 36.683 36.683 36.683 h 388.635 c 20.227 0 36.683 -16.456 36.683 -36.683 S 465.544 49.76 445.317 49.76 H 56.683 Z" />
 							</g>
 						</g>
 						<g>
 							<g>
-								<path d="M 445.317 307.683 H 56.683 C 25.428 307.683 0 282.255 0 251 s 25.428 -56.683 56.683 -56.683 h 388.635 C 476.572 194.317 502 219.745 502 251 S 476.572 307.683 445.317 307.683 Z M 56.683 214.317 C 36.456 214.317 20 230.773 20 251 s 16.456 36.683 36.683 36.683 h 388.635 C 465.544 287.683 482 271.227 482 251 s -16.456 -36.683 -36.683 -36.683 H 56.683 Z" />
+								<path
+								d="M 445.317 307.683 H 56.683 C 25.428 307.683 0 282.255 0 251 s 25.428 -56.683 56.683 -56.683 h 388.635 C 476.572 194.317 502 219.745 502 251 S 476.572 307.683 445.317 307.683 Z M 56.683 214.317 C 36.456 214.317 20 230.773 20 251 s 16.456 36.683 36.683 36.683 h 388.635 C 465.544 287.683 482 271.227 482 251 s -16.456 -36.683 -36.683 -36.683 H 56.683 Z" />
 							</g>
 						</g>
 						<g>
 							<g>
-								<path d="M 445.317 472.24 H 56.683 C 25.428 472.24 0 446.812 0 415.557 c 0 -31.255 25.428 -56.683 56.683 -56.683 h 388.635 c 31.255 0 56.683 25.428 56.683 56.683 C 502 446.812 476.572 472.24 445.317 472.24 Z M 56.683 378.874 C 36.456 378.874 20 395.33 20 415.557 s 16.456 36.683 36.683 36.683 h 388.635 c 20.227 0 36.683 -16.456 36.683 -36.683 s -16.456 -36.683 -36.683 -36.683 H 56.683 Z" />
+								<path
+								d="M 445.317 472.24 H 56.683 C 25.428 472.24 0 446.812 0 415.557 c 0 -31.255 25.428 -56.683 56.683 -56.683 h 388.635 c 31.255 0 56.683 25.428 56.683 56.683 C 502 446.812 476.572 472.24 445.317 472.24 Z M 56.683 378.874 C 36.456 378.874 20 395.33 20 415.557 s 16.456 36.683 36.683 36.683 h 388.635 c 20.227 0 36.683 -16.456 36.683 -36.683 s -16.456 -36.683 -36.683 -36.683 H 56.683 Z" />
 							</g>
 						</g>
 						<g>
@@ -97,41 +41,67 @@
 						</g>
 						</svg>
 					</a>
-					<div id="mobileLogo" style="display: none; margin: 22px 20px 20px 20px;"><a href="../index.html"><img src="../img/knd.png" alt="logo"></a></div>
+					<div id="mobileLogo" style="display: none; margin: 22px 20px 20px 20px;">
+						<a href="/index.html">
+							<img src="/img/knd.png" alt="logo">
+						</a>
+					</div>
 				</div>
-				
+
 				<div id="mobileMenuDown" style="display: none;">
 					<ul>
-                        <li><div class="mobile m-rooms"><a href="/rooms">Номера</a></div></li>
-                        <li><div class="mobile m-setings"><a href="/services">Подробнее</a></div></li>
-                        <li><div class="mobile m-photos"><a href="/photos">Фотографии</a></div></li>
-                        <li><div class="mobile m-location"><a href="/location">Расположение</a></div></li>
-                        <li><div class="mobile m-booking"><a href="/book">Забронировать</a></div></li>
+						<li>
+							<div class="mobile m-rooms">
+								<a href="/rooms">Номера</a>
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-setings">
+								<a href="/services">Подробнее</a>
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-photos">
+								<a href="/photos">Фотографии</a>
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-location">
+								<a href="/location">Расположение</a>
+							</div>
+						</li>
+						<li>
+							<div class="mobile m-booking">
+								<a href="/book">Забронировать</a>
+							</div>
+						</li>
 					</ul>
 					<div class="m-social">
-						<a href="https://vk.com/pragmatic_person" id="vk"><i class="fa fa-vk"></i></a><br>
-						<a href="" id="inst"><i class="fa fa-instagram"></i></a>
+						<a href="https://vk.com/pragmatic_person" id="vk">
+							<i class="fa fa-vk"></i>
+						</a>
+						<br>
+						<a href="" id="inst">
+							<i class="fa fa-instagram"></i>
+						</a>
 					</div>
 				</div>
 			</div>
 			<div id="main_content">
-				<div class="title">				
+				<div class="title">
 					<h2>Двухместный номер</h2>
 				</div>
-				
-				<div class="main_frame"><p class="pl-lg-3">
-					Здесь вам представлена трехмерная модель номера, в которой вы можете детальнее ознакомиться с интерьером. 
-				</p>
+
+				<div class="main_frame">
+					<p class="pl-lg-3">Здесь вам представлена трехмерная модель номера, в которой вы можете детальнее ознакомиться с интерьером.</p>
 					<iframe width="100%" height="640" allowfullscreen src="https://cdn.soft8soft.com/AROAJSY2GOEHMOFUVPIOE:77e856081c/applications/TwiceRoom1/index.html"></iframe>
 				</div>
-				<div th:insert="fragments/footer :: footer">
-                    
-                </div>
+				<div th:insert="fragments/footer :: footer"></div>
 			</div>
-			
+
 		</main>
 	</div>
-	
+
 
 
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
