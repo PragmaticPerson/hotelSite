@@ -32,11 +32,12 @@ public class UserService implements UserDetailsService {
 	private BCryptPasswordEncoder encoder;
 
 	@Autowired
-	public UserService(EmailService emailService, UserRepository repository, ResetTokenService tokenService) {
+	public UserService(EmailService emailService, UserRepository repository, ResetTokenService tokenService,
+			BCryptPasswordEncoder encoder) {
 		this.emailService = emailService;
 		this.repository = repository;
 		this.tokenService = tokenService;
-		encoder = new BCryptPasswordEncoder();
+		this.encoder = encoder;
 	}
 
 	public User createUser(User user) throws MessagingException {
