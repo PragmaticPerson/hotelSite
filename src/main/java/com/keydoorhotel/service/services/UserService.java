@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,7 +68,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User findById(int id) {
-		return repository.getReferenceById(id);
+		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("No entity with id " + id));
 	}
 
 	public User save(User user) {

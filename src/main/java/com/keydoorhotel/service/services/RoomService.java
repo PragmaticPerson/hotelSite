@@ -21,8 +21,12 @@ public class RoomService {
 		this.roomRepository = roomRepository;
 	}
 
+	public List<Room> findAll() {
+		return roomRepository.findAll();
+	}
+
 	public List<Room> findRoomsByDate(LocalDate start, LocalDate end) {
-		List<Room> orderedRooms = reservationService.findOrdersIdByDate(start, end);
+		List<Room> orderedRooms = reservationService.findNotEmptyRoomByDate(start, end);
 		if (orderedRooms.isEmpty()) {
 			return roomRepository.findAll();
 		}

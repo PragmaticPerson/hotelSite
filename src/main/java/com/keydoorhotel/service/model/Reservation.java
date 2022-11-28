@@ -2,6 +2,7 @@ package com.keydoorhotel.service.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,5 +100,40 @@ public class Reservation {
 
 	public void setEviction(LocalDate eviction) {
 		this.eviction = eviction;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(eviction, id, peopleCount, rooms, settling, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reservation other = (Reservation) obj;
+		return Objects.equals(eviction, other.eviction) && id == other.id && peopleCount == other.peopleCount
+				&& Objects.equals(rooms, other.rooms) && Objects.equals(settling, other.settling)
+				&& Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", user=" + user + ", rooms=" + roomsToString() + ", peopleCount="
+				+ peopleCount + ", settling=" + settling + ", eviction=" + eviction + "]";
+	}
+
+	private String roomsToString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (Room room : rooms) {
+			sb.append(room);
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 }

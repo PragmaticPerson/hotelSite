@@ -1,5 +1,7 @@
 package com.keydoorhotel.service.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -76,6 +78,24 @@ public class Room {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, maxPeople, price, source, title);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Room other = (Room) obj;
+		return id == other.id && maxPeople == other.maxPeople && price == other.price
+				&& Objects.equals(source, other.source) && Objects.equals(title, other.title);
 	}
 
 	@Override

@@ -1,49 +1,47 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
 </head>
 
 <body>
-    <div th:fragment="roomsList" th:unless="${#lists.isEmpty(roomsList)}" id="formTwo">
-        <div th:each="room : ${roomsList}">
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                      <img th:src="@{${'../img/rooms/' + room.source + '/1.png'}}" class="popup_img_booking" alt="room" />
-                  </div>
-                  <div class="col-12 col-lg-6">
-                      <label>
-                          <h3 th:text="${room.title}"></h3><br/><p th:text="${'Price per night: ' + room.price}"></p><br/>
-                          <a class="aboutRoom" th:href="@{${'/rooms/' + room.source }}">Подробнее</a>
-                          <input th:field="${order.rooms}" th:value="${room.id}" type="checkbox" >
-                      </label>
-                </div>
-             </div>
-        </div>
-        <div class="row"> 
-            <div class="col-12 col-md-6">
-                <label>Имя:</label><br>
-                <input class="w-100" type="text" th:field="${order.user.name}" required>
-            </div> 
-            <div class="col-12 col-md-6">
-                <label>Фамилия:</label><br>
-                <input class="w-100" type="text" th:field="${order.user.surname}" required>
-            </div>        
-        </div>
-        <div class="row"> 
-            <div class="col-12 col-md-6">
-                <label>Почта:</label><br>
-                <input class="w-100" type="email" th:field="${order.user.email}" placeholder="smth@gmail.com" required>
-            </div> 
-            <div class="col-12 col-md-6">
-                <label>Телефон:</label><br>
-                <input class="w-100" type="tel" th:field="${order.user.phone}" placeholder="+7-777-777-77-77" required>
-            </div>        
-        </div>        
-        <div class="row">
-            <input class="bg-info my-3" type="submit" text="Заказать" />
-        </div>
-    </div>
+	<div th:fragment="roomsList" th:unless="${#lists.isEmpty(roomsList)}" id="formTwo">
+		<div th:each="room : ${roomsList}">
+			<div class="row">
+				<div class="col-12 col-lg-6">
+					<img th:src="@{${'../img/rooms/' + room.source + '/1.png'}}" class="popup_img_booking" alt="room" />
+				</div>
+				<div class="col-12 col-lg-6">
+					<label>
+						<h3 th:text="${room.title}"></h3>
+						<br />
+						<p th:text="${'Price per night: ' + room.price}"></p>
+						<br /> 
+						<a class="aboutRoom" th:href="@{${'/rooms/' + room.source }}">Подробнее</a> 
+						<input th:field="${order.rooms}" th:value="${room.id}" type="checkbox">
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<label>Имя:</label><br> <input class="w-100" type="text" th:field="${order.user.name}" required>
+			</div>
+			<div class="col-12 col-md-6">
+				<label>Фамилия:</label><br> <input class="w-100" type="text" th:field="${order.user.surname}" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<label>Почта:</label><br> <input class="w-100" type="email" th:field="${order.user.email}" placeholder="smth@gmail.com" required>
+			</div>
+			<div class="col-12 col-md-6">
+				<label>Телефон:</label><br> <input class="w-100" type="tel" th:field="${order.user.phone}" placeholder="+7-777-777-77-77" required>
+			</div>
+		</div>
+		<div class="row">
+			<input class="bg-info my-3" type="submit" text="Заказать" />
+		</div>
+	</div>
 </body>
 </html>
