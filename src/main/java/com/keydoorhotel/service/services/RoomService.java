@@ -3,6 +3,8 @@ package com.keydoorhotel.service.services;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +23,20 @@ public class RoomService {
 		this.roomRepository = roomRepository;
 	}
 
+	public Room save(Room room) {
+		return roomRepository.saveAndFlush(room);
+	}
+
+	public Room findById(int id) {
+		return roomRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such row with id " + id));
+	}
+
+	public void delete(int id) {
+		roomRepository.deleteById(id);
+	}
+
 	public List<Room> findAll() {
-		return roomRepository.findAll();
+		return roomRepository.findAllOrderById();
 	}
 
 	public List<Room> findRoomsByDate(LocalDate start, LocalDate end) {

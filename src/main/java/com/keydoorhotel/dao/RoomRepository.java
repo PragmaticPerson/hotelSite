@@ -12,4 +12,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
 	@Query("SELECT r FROM Room r WHERE r NOT IN (:ids)")
 	List<Room> findEmptyRooms(@Param("ids") List<Room> ids);
+
+	@Query("SELECT r FROM Room r ORDER BY r.id")
+	List<Room> findAllOrderById();
 }
