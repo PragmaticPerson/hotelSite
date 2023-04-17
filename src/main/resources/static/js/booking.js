@@ -17,16 +17,14 @@ $(function() {
 						maxDate: new Date(year, month, daymax),
 						minDate: new Date(year, month, daymin)
 					});
-				}
-				else {
+				} else {
 					$('#date').datepicker({
 						maxDate: new Date(year, month, daymax),
 						minDate: new Date()
 					});
 				}
 
-			}
-			else if (selectedDates !== undefined && selectedDates != '' && selectedDates.indexOf('-') > -1) {
+			} else if (selectedDates !== undefined && selectedDates != '' && selectedDates.indexOf('-') > -1) {
 				var mdy = selectedDates.split('-');
 				var dist = mdy[0].split('.');
 				var year = +dist[2];
@@ -39,15 +37,13 @@ $(function() {
 						maxDate: new Date(year, month, daymax),
 						minDate: new Date(year, month, daymin)
 					});
-				}
-				else {
+				} else {
 					$('#date').datepicker({
 						maxDate: new Date(year, month, daymax),
 						minDate: new Date()
 					});
 				}
-			}
-			else if (selectedDates !== undefined || selectedDates != '') {
+			} else if (selectedDates !== undefined || selectedDates != '') {
 				$('#date').datepicker({
 					maxDate: '',
 					minDate: new Date
