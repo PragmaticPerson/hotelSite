@@ -22,7 +22,7 @@ public class Room {
 	private String title;
 
 	@Column(name = "source")
-	private String source;
+	private String source; 
 
 	@Column(name = "max_people")
 	private int maxPeople;
@@ -36,10 +36,14 @@ public class Room {
 	@Column(name = "panorama_url_id")
 	private String panoramaUrlId;
 
+	@Column(name = "description")
+	private String description;
+
 	public Room() {
 	}
 
-	public Room(String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId) {
+	public Room(String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId,
+			String description) {
 		super();
 		this.title = title;
 		this.source = source;
@@ -47,9 +51,11 @@ public class Room {
 		this.price = price;
 		this.imageCount = imageCount;
 		this.panoramaUrlId = panoramaUrlId;
+		this.description = description;
 	}
 
-	public Room(int id, String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId) {
+	public Room(int id, String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId,
+			String description) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -58,6 +64,7 @@ public class Room {
 		this.price = price;
 		this.imageCount = imageCount;
 		this.panoramaUrlId = panoramaUrlId;
+		this.description = description;
 	}
 
 	public int getId() {
@@ -116,9 +123,17 @@ public class Room {
 		this.panoramaUrlId = panoramaUrlId;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, imageCount, maxPeople, panoramaUrlId, price, source, title);
+		return Objects.hash(description, id, imageCount, maxPeople, panoramaUrlId, price, source, title);
 	}
 
 	@Override
@@ -130,14 +145,15 @@ public class Room {
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		return id == other.id && imageCount == other.imageCount && maxPeople == other.maxPeople
-				&& Objects.equals(panoramaUrlId, other.panoramaUrlId) && price == other.price
-				&& Objects.equals(source, other.source) && Objects.equals(title, other.title);
+		return Objects.equals(description, other.description) && id == other.id && imageCount == other.imageCount
+				&& maxPeople == other.maxPeople && Objects.equals(panoramaUrlId, other.panoramaUrlId)
+				&& price == other.price && Objects.equals(source, other.source) && Objects.equals(title, other.title);
 	}
 
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", title=" + title + ", source=" + source + ", maxPeople=" + maxPeople + ", price="
-				+ price + ", imageCount=" + imageCount + ", panoramaUrlId=" + panoramaUrlId + "]";
+				+ price + ", imageCount=" + imageCount + ", panoramaUrlId=" + panoramaUrlId + ", description="
+				+ description + "]";
 	}
 }

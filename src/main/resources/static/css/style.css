@@ -589,7 +589,7 @@ fieldset {
 	display: block;
 	width: 75px;
 	height: 2px;
-	margin: 0px auto 25px;
+	margin: 0px auto 0px;
 	background: #C69249;
 }
 

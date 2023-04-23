@@ -21,11 +21,7 @@
 		<div class="col-12 col-lg-6 order-1 order-lg-12">
 			<div class="description">
 				<h2 th:text="${room.title}"></h2>
-				<p>
-					Наши двухместные номера площадью 25 м
-					<sup>2</sup>
-					включают двуспальную кровать, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
-				</p>
+				<p th:text="${room.description}"></p>
 				<a class="aboutRoom" th:href="${'/rooms/' + room.source}">ПОДРОБНЕЕ</a>
 			</div>
 		</div>
@@ -45,11 +41,7 @@
 		<div class="col-12 col-lg-6">
 			<div class="description">
 				<h2 th:text="${room.title}"></h2>
-				<p>
-					Наши двухместные номера площадью 25 м
-					<sup>2</sup>
-					включают двуспальную кровать, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
-				</p>
+				<p th:text="${room.description}"></p>
 				<a class="aboutRoom" th:href="${'/rooms/' + room.source}">ПОДРОБНЕЕ</a>
 			</div>
 		</div>

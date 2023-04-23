@@ -13,6 +13,7 @@ public class RoomDTO {
 	private int price;
 	private int imageCount;
 	private String panoramaUrlId;
+	private String description;
 
 	public RoomDTO(Room room) {
 		id = room.getId();
@@ -22,10 +23,11 @@ public class RoomDTO {
 		source = room.getSource();
 		imageCount = room.getImageCount();
 		panoramaUrlId = room.getPanoramaUrlId();
+		description = room.getDescription();
 	}
 
-	public RoomDTO(int id, String title, int maxPeople, int price, String source, int imageCount,
-			String panoramaUrlId) {
+	public RoomDTO(int id, String title, int maxPeople, int price, String source, int imageCount, String panoramaUrlId,
+			String description) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -34,6 +36,7 @@ public class RoomDTO {
 		this.source = source;
 		this.imageCount = imageCount;
 		this.panoramaUrlId = panoramaUrlId;
+		this.description = description;
 	}
 
 	public int getId() {
@@ -92,9 +95,17 @@ public class RoomDTO {
 		this.panoramaUrlId = panoramaUrlId;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, imageCount, maxPeople, panoramaUrlId, price, source, title);
+		return Objects.hash(description, id, imageCount, maxPeople, panoramaUrlId, price, source, title);
 	}
 
 	@Override
@@ -106,8 +117,8 @@ public class RoomDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		RoomDTO other = (RoomDTO) obj;
-		return id == other.id && imageCount == other.imageCount && maxPeople == other.maxPeople
-				&& Objects.equals(panoramaUrlId, other.panoramaUrlId) && price == other.price
-				&& Objects.equals(source, other.source) && Objects.equals(title, other.title);
+		return Objects.equals(description, other.description) && id == other.id && imageCount == other.imageCount
+				&& maxPeople == other.maxPeople && Objects.equals(panoramaUrlId, other.panoramaUrlId)
+				&& price == other.price && Objects.equals(source, other.source) && Objects.equals(title, other.title);
 	}
 }
