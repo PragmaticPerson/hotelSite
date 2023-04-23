@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head th:include="fragments/head :: headFragment">
-	<title id="pageTitle">Комнаты</title>
+<title id="pageTitle">Комнаты</title>
 </head>
 <body>
+	<script src="../js/slider.js"></script>
 	<div class="wrapper">
 		<main class="content course">
 
@@ -93,143 +94,24 @@
 					<div class="row">
 						<div class="aboutHotelText col-12">
 							<div class="container">
-								<p>Отель включает в себя 38 недавно отремонтированных и со вкусом обставленных номеров. Это светлые и оборудованные всем необходимым помещения. Приятные
-									оттенки: бордовый, светло-серый или сдержанный темно-серый – и элегантные материалы, присутствующие в интерьере, не оставят вас равнодушными. А простор номера и
-									мягкое постельное белье удовлетворят все ваши требования к комфорту.</p>
+								<p>В нашей гостинице вы найдете шесть уникальных номеров, каждый из которых олицетворяет комфорт и роскошь. Наша коллекция номеров предлагает различные варианты для
+									удовлетворения любых потребностей, от современных и стильных номеров до традиционных и уютных номеров с видом на живописный пейзаж. Каждый номер представляет собой
+									уникальный опыт, который оставит незабываемые впечатления у каждого гостя. Мы приглашаем вас насладиться нашими прекрасными номерами и провести незабываемый отдых в нашей
+									гостинице.</p>
 							</div>
 						</div>
 					</div>
-					<div class="row m-1 my-0 my-lg-4 py-3" style="border: 2px solid #c69249">
-						<div class="col-12 col-lg-6">
-							<div class="description">
-								<h2>Одноместный номер</h2>
-								<p>
-									Наши одноместные номера площадью 11 м
-									<sup>2</sup>
-									включают постельное белье, пуховое одеяло, удобные подушки, шкаф, стол. В них есть все необходимые удобства: Wi-Fi, телевизор с плоским экраном и спутниковыми
-									каналами и т. д. Общий санузел на несколько комнат.
-								</p>
-								<a class="aboutRoom" href="/rooms/single">ПОДРОБНЕЕ</a>
-							</div>
-						</div>
-						<div class="col-12 col-lg-6">
-							<div class="slider SliderOne">
-								<div class="slider__wrapper">
-									<div class="slider__item">
-										<img src="../img/rooms/single/1.png" class="d-block w-100" alt="single room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/single/2.png" class="d-block w-100" alt="single room">
-									</div>
-								</div>
-								<a class="slider__control slider__control_left" href="#" role="button"></a>
-								<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-							</div>
 
-						</div>
-					</div>
-					<div class="row m-1 py-3">
-						<div class="col-12 col-lg-6 order-12 order-lg-1">
-							<div class="slider SliderTwo">
-								<div class="slider__wrapper">
-									<div class="slider__item">
-										<img src="../img/rooms/double/1.png" class="d-block w-100" alt="double room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/double/2.png" class="d-block w-100" alt="double room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/double/3.png" class="d-block w-100" alt="double room">
-									</div>
-								</div>
-								<a class="slider__control slider__control_left" href="#" role="button"></a>
-								<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-							</div>
+					<th:block th:each="r, iStat : ${rooms}">
+						<th:block th:if="${iStat.index} % 2 == 0">
+							<div th:insert="fragments/roomBlocks :: rightSideImage(${r})"></div>
+						</th:block>
 
-						</div>
-						<div class="col-12 col-lg-6 order-1 order-lg-12">
-							<div class="description">
-								<h2>Двухместный номер</h2>
-								<p>
-									Наши двухместные номера площадью 22 м
-									<sup>2</sup>
-									включают двуспальную кровать с пуховым одеялом и удобными подушками, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
-								</p>
-								<a class="aboutRoom" href="/rooms/double">ПОДРОБНЕЕ</a>
-							</div>
-						</div>
-					</div>
-					<div class="row m-1 my-0 my-lg-4 py-3" style="border: 2px solid #c69249">
-						<div class="col-12 col-lg-6">
-							<div class="description">
-								<h2>Двухместный номер с двухэтажной кроватью</h2>
-								<p>
-									Наши двухместные номера площадью 22 м
-									<sup>2</sup>
-									включают двуспальную кровать с пуховым одеялом и удобными подушками, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
-								</p>
-								<a class="aboutRoom" href="/rooms/double-eco">ПОДРОБНЕЕ</a>
-							</div>
-						</div>
-						<div class="col-12 col-lg-6">
-							<div class="slider SliderFour">
-								<div class="slider__wrapper">
-									<div class="slider__item">
-										<img src="../img/rooms/double-eco/1.png" class="d-block w-100" alt="double-eco room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/double-eco/2.png" class="d-block w-100" alt="double-eco room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/double-eco/3.png" class="d-block w-100" alt="double-eco room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/double-eco/4.png" class="d-block w-100" alt="double-eco room">
-									</div>
-								</div>
-								<a class="slider__control slider__control_left" href="#" role="button"></a>
-								<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-							</div>
+						<th:block th:if="${iStat.index} % 2 == 1">
+							<div th:insert="fragments/roomBlocks :: leftSideImage(${r})"></div>
+						</th:block>
+					</th:block>
 
-						</div>
-					</div>
-					<div class="row m-1 py-3">
-						<div class="col-12 col-lg-6 order-12 order-lg-1">
-							<div class="slider SliderTree">
-								<div class="slider__wrapper">
-									<div class="slider__item">
-										<img src="../img/rooms/triple/1.png" class="d-block w-100" alt="triple room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/triple/2.png" class="d-block w-100" alt="triple room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/triple/3.png" class="d-block w-100" alt="triple room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/triple/4.png" class="d-block w-100" alt="triple room">
-									</div>
-									<div class="slider__item">
-										<img src="../img/rooms/triple/5.png" class="d-block w-100" alt="triple room">
-									</div>
-								</div>
-								<a class="slider__control slider__control_left" href="#" role="button"></a>
-								<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-							</div>
-
-						</div>
-						<div class="col-12 col-lg-6 order-1 order-lg-12">
-							<div class="description">
-								<h2>Трехместный номер</h2>
-								<p>
-									Наши двухместные номера площадью 25 м
-									<sup>2</sup>
-									включают двуспальную кровать, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
-								</p>
-								<a class="aboutRoom" href="/rooms/triple">ПОДРОБНЕЕ</a>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div th:insert="fragments/footer :: footer"></div>
 			</div>
@@ -238,7 +120,6 @@
 		</main>
 	</div>
 
-	<script src="../js/slider.js"></script>
 	<script src="../js/script.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>

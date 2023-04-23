@@ -1,43 +1,39 @@
 package com.keydoorhotel.service.dto;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import com.keydoorhotel.service.model.Image;
 import com.keydoorhotel.service.model.Room;
 
 public class RoomDTO {
 
 	private int id;
 	private String title;
+	private String source;
 	private int maxPeople;
 	private int price;
-	private List<ImageDTO> images;
+	private int imageCount;
+	private String panoramaUrlId;
 
 	public RoomDTO(Room room) {
 		id = room.getId();
 		title = room.getTitle();
 		maxPeople = room.getMaxPeople();
 		price = room.getPrice();
-
-		images = new ArrayList<>();
-		for (Image img : room.getImages()) {
-			this.images.add(new ImageDTO(img));
-		}
+		source = room.getSource();
+		imageCount = room.getImageCount();
+		panoramaUrlId = room.getPanoramaUrlId();
 	}
 
-	public RoomDTO(int id, String title, int maxPeople, int price, List<Image> images) {
+	public RoomDTO(int id, String title, int maxPeople, int price, String source, int imageCount,
+			String panoramaUrlId) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.maxPeople = maxPeople;
 		this.price = price;
-
-		this.images = new ArrayList<>();
-		for (Image img : images) {
-			this.images.add(new ImageDTO(img));
-		}
+		this.source = source;
+		this.imageCount = imageCount;
+		this.panoramaUrlId = panoramaUrlId;
 	}
 
 	public int getId() {
@@ -72,17 +68,33 @@ public class RoomDTO {
 		this.price = price;
 	}
 
-	public List<ImageDTO> getImages() {
-		return images;
+	public String getSource() {
+		return source;
 	}
 
-	public void setImages(List<ImageDTO> images) {
-		this.images = images;
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public int getImageCount() {
+		return imageCount;
+	}
+
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
+	}
+
+	public String getPanoramaUrlId() {
+		return panoramaUrlId;
+	}
+
+	public void setPanoramaUrlId(String panoramaUrlId) {
+		this.panoramaUrlId = panoramaUrlId;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, images, maxPeople, price, title);
+		return Objects.hash(id, imageCount, maxPeople, panoramaUrlId, price, source, title);
 	}
 
 	@Override
@@ -94,7 +106,8 @@ public class RoomDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		RoomDTO other = (RoomDTO) obj;
-		return id == other.id && Objects.equals(images, other.images) && maxPeople == other.maxPeople
-				&& price == other.price && Objects.equals(title, other.title);
+		return id == other.id && imageCount == other.imageCount && maxPeople == other.maxPeople
+				&& Objects.equals(panoramaUrlId, other.panoramaUrlId) && price == other.price
+				&& Objects.equals(source, other.source) && Objects.equals(title, other.title);
 	}
 }

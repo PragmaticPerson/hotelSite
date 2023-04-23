@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+</head>
+
+<body>
+
+	<div th:fragment="leftSideImage(room)" class="row m-1 py-3">
+		<div class="col-12 col-lg-6 order-12 order-lg-1">
+			<div class="slider" th:classappend="${'slider-' + room.source}">
+				<div class="slider__wrapper">
+					<div class="slider__item" th:each="i : ${#numbers.sequence(1, room.imageCount)}">
+						<img th:src="${'../img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
+					</div>
+				</div>
+				<a class="slider__control slider__control_left" href="#" role="button"></a>
+				<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+			</div>
+		</div>
+		<div class="col-12 col-lg-6 order-1 order-lg-12">
+			<div class="description">
+				<h2 th:text="${room.title}"></h2>
+				<p>
+					Наши двухместные номера площадью 25 м
+					<sup>2</sup>
+					включают двуспальную кровать, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
+				</p>
+				<a class="aboutRoom" th:href="${'/rooms/' + room.source}">ПОДРОБНЕЕ</a>
+			</div>
+		</div>
+
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			var roomSource = /*[[${room.source}]]*/'1-1L';
+			var className = '.slider-' + roomSource;
+			multiItemSlider(className);
+
+			/*]]>*/
+		</script>
+	</div>
+
+	<div th:fragment="rightSideImage(room)" class="row m-1 my-0 my-lg-4 py-3" style="border: 2px solid #c69249">
+		<div class="col-12 col-lg-6">
+			<div class="description">
+				<h2 th:text="${room.title}"></h2>
+				<p>
+					Наши двухместные номера площадью 25 м
+					<sup>2</sup>
+					включают двуспальную кровать, шкаф, обеденный стол, холодильник, шкаф, телевизор, Wi-Fi.
+				</p>
+				<a class="aboutRoom" th:href="${'/rooms/' + room.source}">ПОДРОБНЕЕ</a>
+			</div>
+		</div>
+		<div class="col-12 col-lg-6">
+			<div class="slider" th:classappend="${'slider-' + room.source}">
+				<div class="slider__wrapper">
+					<div class="slider__item" th:each="i : ${#numbers.sequence(1, room.imageCount)}">
+						<img th:src="${'../img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
+					</div>
+				</div>
+				<a class="slider__control slider__control_left" href="#" role="button"></a>
+				<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+			</div>
+		</div>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			var roomSource = /*[[${room.source}]]*/'1-1L';
+			var className = '.slider-' + roomSource;
+			multiItemSlider(className);
+
+			/*]]>*/
+		</script>
+	</div>
+
+</body>
+</html>

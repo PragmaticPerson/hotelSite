@@ -1,11 +1,9 @@
 package com.keydoorhotel.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.keydoorhotel.service.dto.RoomDTO;
-import com.keydoorhotel.service.model.Image;
 import com.keydoorhotel.service.model.Reservation;
 import com.keydoorhotel.service.model.Room;
 import com.keydoorhotel.service.services.ReservationService;
@@ -127,17 +121,9 @@ public class AdminController {
 		return "redirect:/admin/rooms";
 	}
 
-	@PostMapping("/rooms/{id}/images")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void postRoomImage(@RequestParam("file") MultipartFile file, @PathVariable("id") int id, ModelMap model)
-			throws IOException {
-		Image image = new Image();
-		image.setImage(file.getBytes());
-		image.setName(file.getOriginalFilename());
-
-		var room = roomService.findById(id);
-
-		room.addImage(image);
-		roomService.save(room);
+	@PostMapping("/rooms/{id}/images/{imageId}")
+	public String deleteImageFromRoom(@PathVariable("id") int id, @PathVariable("imageId") int imageId) {
+//		imageService.delete(imageId);
+		return "redirect:/admin/rooms/" + id;
 	}
 }

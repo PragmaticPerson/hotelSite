@@ -559,7 +559,7 @@ fieldset {
 	background-size: contain;
 	background-attachment: fixed;
 	background-repeat: no-repeat;
-	background-image: url(../img/roomsBG.jpg);
+	background-image: url(../img/homeBG.jpg);
 	position: relative;
 	min-height: 200px;
 	display: flex;

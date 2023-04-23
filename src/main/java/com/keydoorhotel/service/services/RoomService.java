@@ -31,6 +31,11 @@ public class RoomService {
 		return roomRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such row with id " + id));
 	}
 
+	public Room findBySource(String source) {
+		return roomRepository.findBySource(source)
+				.orElseThrow(() -> new EntityNotFoundException("No such row with source " + source));
+	}
+
 	public void delete(int id) {
 		roomRepository.deleteById(id);
 	}

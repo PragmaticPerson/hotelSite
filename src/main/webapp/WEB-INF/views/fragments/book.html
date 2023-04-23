@@ -9,15 +9,15 @@
 		<div th:each="room : ${roomsList}">
 			<div class="row">
 				<div class="col-12 col-lg-6">
-					<img th:src="@{${'../img/rooms/' + room.source + '/1.png'}}" class="popup_img_booking" alt="room" />
+					<img th:src="@{'data:image/jpeg;base64,' + ${room.images.get(0).image}}" class="popup_img_booking" alt="room" />
 				</div>
 				<div class="col-12 col-lg-6">
 					<label>
-						<h3 th:text="${room.title}"></h3>
+						<h3 th:text="${room.title}" />
 						<br />
-						<p th:text="${'Price per night: ' + room.price}"></p>
+						<p th:text="${'Price per night: ' + room.price}" />
 						<br /> 
-						<a class="aboutRoom" th:href="@{${'/rooms/' + room.source }}">Подробнее</a> 
+						<a class="aboutRoom" th:href="@{${'/rooms/' + room.id}}">Подробнее</a>
 						<input th:field="${order.rooms}" th:value="${room.id}" type="checkbox">
 					</label>
 				</div>

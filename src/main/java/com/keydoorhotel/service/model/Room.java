@@ -1,18 +1,12 @@
 package com.keydoorhotel.service.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,25 +21,43 @@ public class Room {
 	@Column(name = "title")
 	private String title;
 
+	@Column(name = "source")
+	private String source;
+
 	@Column(name = "max_people")
 	private int maxPeople;
 
 	@Column(name = "price")
 	private int price;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "room_image", joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
-	private List<Image> images;
+	@Column(name = "image_count")
+	private int imageCount;
+
+	@Column(name = "panorama_url_id")
+	private String panoramaUrlId;
 
 	public Room() {
-		images = new ArrayList<>();
 	}
 
-	public Room(String title, int maxPeople, int price) {
+	public Room(String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId) {
+		super();
 		this.title = title;
+		this.source = source;
 		this.maxPeople = maxPeople;
 		this.price = price;
-		images = new ArrayList<>();
+		this.imageCount = imageCount;
+		this.panoramaUrlId = panoramaUrlId;
+	}
+
+	public Room(int id, String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.source = source;
+		this.maxPeople = maxPeople;
+		this.price = price;
+		this.imageCount = imageCount;
+		this.panoramaUrlId = panoramaUrlId;
 	}
 
 	public int getId() {
@@ -64,6 +76,14 @@ public class Room {
 		this.title = title;
 	}
 
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
 	public int getMaxPeople() {
 		return maxPeople;
 	}
@@ -80,22 +100,25 @@ public class Room {
 		this.price = price;
 	}
 
-	public List<Image> getImages() {
-		return images;
+	public int getImageCount() {
+		return imageCount;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
 	}
 
-	public List<Image> addImage(Image image) {
-		images.add(image);
-		return images;
+	public String getPanoramaUrlId() {
+		return panoramaUrlId;
+	}
+
+	public void setPanoramaUrlId(String panoramaUrlId) {
+		this.panoramaUrlId = panoramaUrlId;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, images, maxPeople, price, title);
+		return Objects.hash(id, imageCount, maxPeople, panoramaUrlId, price, source, title);
 	}
 
 	@Override
@@ -107,12 +130,14 @@ public class Room {
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		return id == other.id && Objects.equals(images, other.images) && maxPeople == other.maxPeople
-				&& price == other.price && Objects.equals(title, other.title);
+		return id == other.id && imageCount == other.imageCount && maxPeople == other.maxPeople
+				&& Objects.equals(panoramaUrlId, other.panoramaUrlId) && price == other.price
+				&& Objects.equals(source, other.source) && Objects.equals(title, other.title);
 	}
 
 	@Override
 	public String toString() {
-		return "Room [id=" + id + ", title=" + title + ", maxPeople=" + maxPeople + ", price=" + price + "]";
+		return "Room [id=" + id + ", title=" + title + ", source=" + source + ", maxPeople=" + maxPeople + ", price="
+				+ price + ", imageCount=" + imageCount + ", panoramaUrlId=" + panoramaUrlId + "]";
 	}
 }

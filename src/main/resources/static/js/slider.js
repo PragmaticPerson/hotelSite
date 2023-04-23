@@ -85,7 +85,3 @@ var multiItemSlider = (function() {
 
 	}
 }());
-var slider = multiItemSlider('.SliderOne');
-var slider = multiItemSlider('.SliderTwo');
-var slider = multiItemSlider('.SliderTree');
-var slider = multiItemSlider('.SliderFour');

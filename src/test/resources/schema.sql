@@ -4,13 +4,16 @@ DROP TABLE IF EXISTS room CASCADE;
 DROP TABLE IF EXISTS user_roles CASCADE;
 DROP TABLE IF EXISTS s_user CASCADE;
 DROP TABLE IF EXISTS s_role CASCADE;
+DROP TABLE IF EXISTS reset_token CASCADE;
 CREATE TABLE room
 (
    id SERIAL PRIMARY KEY,
    title CHARACTER VARYING (60) DEFAULT NULL,
-   source CHARACTER VARYING (10) DEFAULT NULL,
+   source CHARACTER VARYING (20) DEFAULT NULL,
    max_people INTEGER,
-   price INTEGER
+   price INTEGER,
+   image_count INTEGER,
+   panorama_url_id CHARACTER VARYING (32) DEFAULT NULL
 );
 CREATE TABLE s_user
 (
@@ -72,35 +75,63 @@ INSERT INTO room
    title,
    source,
    max_people,
-   price
+   price,
+   image_count,
+   panorama_url_id
 )
 VALUES
 (
-   'Одноместный номер',
-   'single',
+   'Одноместный люкс',
+   '1-1L',
    1,
-   2400
-),
-
-(
-   'Двухместный номер',
-   'double',
-   2,
-   4500
-),
-
-(
-   'Двухместный номер с двухэтажной кроватью',
-   'double-eco',
-   2,
-   4000
-),
-
-(
-   'Трехместный номер',
-   'triple',
+   5000,
    3,
-   6200
+   'fa691521095745c99ca9822c1ee19615'
+),
+
+(
+   'Одноместный',
+   '1-2',
+   1,
+   4000,
+   2,
+   ''
+),
+
+(
+   'Одноместный',
+   '1-3',
+   1,
+   4000,
+   2,
+   ''
+),
+
+(
+   'Двухместный люкс',
+   '2-1L',
+   2,
+   9000,
+   3,
+   '35f59da1aaf3439fbaab7cb02081eb54'
+),
+
+(
+   'Двухместный с совместным размещением',
+   '2-2',
+   2,
+   8000,
+   3,
+   ''
+),
+
+(
+   'Двухместный с раздельным размещением',
+   '2-3',
+   2,
+   7500,
+   3,
+   ''
 );
 INSERT INTO s_role (name) VALUES ('ADMIN'),
 ('USER');

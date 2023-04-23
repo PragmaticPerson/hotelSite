@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
-
-<head th:include="fragments/head :: headFragment">
-<title id="pageTitle">Комнаты</title>
+<head th:insert="fragments/head :: headFragment">
+	<title id="pageTitle">Комнаты</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -102,20 +101,17 @@
 							</tr>
 							<tr th:each="r : ${rooms}">
 								<td>
-									<span th:text="${r.id}"> #id </span>
+									<span th:id="${r.id}" th:text="${r.id}"> #id </span>
 								</td>
 								<td>
 									<span th:text="${r.title}"> Title </span>
 								</td>
 								<td>
-									<div class="slider SliderFour">
-										<div class="slider__wrapper">
-											<div class="slider__item" th:each="img : *{r.images}">
-												<img th:src="@{'data:image/jpeg;base64,'+${img.image}}" class="w-50" alt="room" />
-											</div>
-										</div>
-										<a class="slider__control slider__control_left" href="#" role="button"></a>
-										<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+									<div th:if="${r.images == null or r.images.empty}">
+										<span>Нет доступных изображений</span>
+									</div>
+									<div class="swiper-slide" th:unless="${r.images.empty}">
+										<img th:src="@{'data:image/jpeg;base64,' + ${r.images.get(0).image}}" class="w-100" alt="room" />
 									</div>
 								</td>
 								<td>
@@ -144,7 +140,6 @@
 	</div>
 
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-	<script src="/js/slider.js"></script>
 	<script src="/js/script.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 </body>
