@@ -11,7 +11,7 @@
 			<div class="slider" th:classappend="${'slider-' + room.source}">
 				<div class="slider__wrapper">
 					<div class="slider__item" th:each="i : ${#numbers.sequence(1, room.imageCount)}">
-						<img th:src="${'../img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
+						<img th:src="${'/img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
 					</div>
 				</div>
 				<a class="slider__control slider__control_left" href="#" role="button"></a>
@@ -49,7 +49,7 @@
 			<div class="slider" th:classappend="${'slider-' + room.source}">
 				<div class="slider__wrapper">
 					<div class="slider__item" th:each="i : ${#numbers.sequence(1, room.imageCount)}">
-						<img th:src="${'../img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
+						<img th:src="${'/img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
 					</div>
 				</div>
 				<a class="slider__control slider__control_left" href="#" role="button"></a>

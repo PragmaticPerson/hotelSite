@@ -22,7 +22,7 @@ public class Room {
 	private String title;
 
 	@Column(name = "source")
-	private String source; 
+	private String source;
 
 	@Column(name = "max_people")
 	private int maxPeople;

@@ -1,21 +1,28 @@
 package com.keydoorhotel.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.keydoorhotel.service.dto.RoomDTO;
 import com.keydoorhotel.service.model.Reservation;
 import com.keydoorhotel.service.model.Room;
+import com.keydoorhotel.service.services.ImageService;
 import com.keydoorhotel.service.services.ReservationService;
 import com.keydoorhotel.service.services.RoomService;
 
@@ -25,12 +32,14 @@ public class AdminController {
 
 	private ReservationService reservationService;
 	private RoomService roomService;
+	private ImageService imageService;
 
 	@Autowired
-	public AdminController(ReservationService reservationService, RoomService roomService) {
+	public AdminController(ReservationService reservationService, RoomService roomService, ImageService imageService) {
 		super();
 		this.reservationService = reservationService;
 		this.roomService = roomService;
+		this.imageService = imageService;
 	}
 
 	@GetMapping("/book")
@@ -103,14 +112,17 @@ public class AdminController {
 	}
 
 	@GetMapping("/rooms/{id}")
-	public ModelAndView getSpecialRoom(@PathVariable("id") int id, ModelMap model) {
+	public ModelAndView getSpecialRoom(@PathVariable("id") int id, ModelMap model) throws IOException {
 		var roomEntity = roomService.findById(id);
+		var imageNames = imageService.getAllImageNames(roomEntity.getSource());
+
+		model.put("images", imageNames);
 		model.put("room", new RoomDTO(roomEntity));
 		return new ModelAndView("admin/rooms/one", model);
 	}
 
 	@PostMapping("/rooms/{id}")
-	public String postSpecialRoom(@ModelAttribute("room") Room room, ModelMap model) {
+	public String postSpecialRoom(@ModelAttribute("room") Room room, ModelMap model) throws IOException {
 		try {
 			roomService.save(room);
 		} catch (RuntimeException e) {
@@ -121,9 +133,15 @@ public class AdminController {
 		return "redirect:/admin/rooms";
 	}
 
-	@PostMapping("/rooms/{id}/images/{imageId}")
-	public String deleteImageFromRoom(@PathVariable("id") int id, @PathVariable("imageId") int imageId) {
-//		imageService.delete(imageId);
+	@PostMapping("/rooms/{id}/images")
+	public String saveNewImageToRoom(@PathVariable int id, @RequestParam MultipartFile file) {
+		imageService.saveImageForRoom(id, file);
+		return "redirect:/admin/rooms/" + id;
+	}
+
+	@PostMapping("/rooms/{id}/images/{imageName}")
+	public String deleteImageFromRoom(@PathVariable int id, @PathVariable String imageName) {
+		imageService.deleteImageFromRoom(id, imageName);
 		return "redirect:/admin/rooms/" + id;
 	}
 }

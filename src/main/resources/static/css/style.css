@@ -383,19 +383,19 @@ fieldset {
 }
 
 #date {
-    position: relative;
-    display: block;
-    padding: 30px 16px 8px 16px;
-    box-sizing: border-box;
+	position: relative;
+	display: block;
+	padding: 30px 16px 8px 16px;
+	box-sizing: border-box;
 }
 
 #before-date::after {
-    content: '' attr(data-dates);
-    position: absolute;
-    top: 16px;
-    left: 22px;
-    font-size: 16px;
-    display: block;
+	content: '' attr(data-dates);
+	position: absolute;
+	top: 16px;
+	left: 22px;
+	font-size: 16px;
+	display: block;
 }
 
 .manage-div {
@@ -815,6 +815,69 @@ fieldset {
 	border-color: red;
 }
 
+/* admin upload input */
+.drop-container {
+	position: relative;
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+	padding: 20px;
+	border-radius: 10px;
+	border: 2px dashed #555;
+	color: #444;
+	cursor: pointer;
+	transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+
+.drop-container:hover {
+	background: #eee;
+	border-color: #111;
+}
+
+.drop-container:hover .drop-title {
+	color: #222;
+}
+
+.drop-title {
+	color: #444;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	transition: color .2s ease-in-out;
+}
+
+input[type=file], #uploadImages {
+	width: 350px;
+	max-width: 100%;
+	color: #444;
+	background: #fff;
+	border-radius: 10px;
+	border: 1px solid #555;
+}
+
+input[type=file]::file-selector-button {
+	margin-right: 20px;
+	border: none;
+	background: #084cdf;
+	padding: 10px 20px;
+	border-radius: 10px;
+	color: #fff;
+	cursor: pointer;
+	transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover, #uploadImages:hover {
+	background: #0d45a5;
+}
+
+#uploadImages:hover {
+	background: #0d45a5;
+	color: #fff;
+}
+
 /* Booking page */
 .dropdown-toggle-my {
 	background-color: #fff;
@@ -837,14 +900,14 @@ fieldset {
 }
 
 .guests-inline::after {
-    display: inline-block;
-    margin-left: 0.255em;
-    vertical-align: 0.255em;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
+	display: inline-block;
+	margin-left: 0.255em;
+	vertical-align: 0.255em;
+	content: "";
+	border-top: 0.3em solid;
+	border-right: 0.3em solid transparent;
+	border-bottom: 0;
+	border-left: 0.3em solid transparent;
 }
 
 .dropdown-menu {
@@ -856,7 +919,7 @@ fieldset {
 }
 
 .dropdown-row {
-	align-items: center;	
+	align-items: center;
 }
 
 .dropdown-header-my {
@@ -882,7 +945,7 @@ fieldset {
 }
 
 .dropdown.open .dropdown-menu {
-  display: block;
+	display: block;
 }
 
 @media screen and (min-width: 1468px) {
