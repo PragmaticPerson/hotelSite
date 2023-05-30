@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.keydoorhotel.service.services.ImageService;
 
 @Controller
-public class Imagecontroler {
+public class ImageControler {
 
 	private ImageService imageService;
 
-	public Imagecontroler(ImageService imageService) {
+	public ImageControler(ImageService imageService) {
 		super();
 		this.imageService = imageService;
 	}

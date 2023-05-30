@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 
-<head th:include="fragments/head :: headFragment">
-	<title id="pageTitle">Admin panel</title>
+<head th:insert="fragments/head :: headFragment">
+<title id="pageTitle">Admin panel</title>
 </head>
 <body>
+	<link href="css/mobiscroll.javascript.min.css" rel="stylesheet" />
+	<script src="js/mobiscroll.javascript.min.js"></script>
 	<div class="wrapper">
 
 		<header th:insert="fragments/sideNavbar :: navbar (page='admin')"></header>
 
 		<div class="mobileMenu d-block d-lg-none">
 			<div class="mobileButtonDiv" style="display: flex;">
-				<a id="mobile-button" style="margin: 0 20px;"> <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502"
-						x="0px" y="0px" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
+				<a id="mobile-button" style="margin: 0 20px;">
+					<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502" x="0px" y="0px"
+						xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
 						<g>
 						<g>
 							<g>
@@ -41,7 +44,8 @@
 						</svg>
 				</a>
 				<div id="mobileLogo" style="display: none; margin: 22px 20px 20px 20px;">
-					<a href="index.html"> <img src="/img/knd.png" alt="logo">
+					<a href="index.html">
+						<img src="/img/knd.png" alt="logo">
 					</a>
 				</div>
 			</div>
@@ -75,16 +79,25 @@
 					</li>
 				</ul>
 				<div class="m-social">
-					<a href="https://vk.com/pragmatic_person" id="vk"> <i class="fa fa-vk"></i>
-					</a> <br> <a href="" id="inst"> <i class="fa fa-instagram"></i>
+					<a href="https://vk.com/pragmatic_person" id="vk">
+						<i class="fa fa-vk"></i>
+					</a>
+					<br>
+					<a href="" id="inst">
+						<i class="fa fa-instagram"></i>
 					</a>
 				</div>
 			</div>
 		</div>
 
+		<div id="main_content">
+
+			<div id="month-view"></div>
+		</div>
 	</div>
 
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+	<script src="/js/myMobiScroll.js"></script>
 	<script src="/js/script.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 </body>

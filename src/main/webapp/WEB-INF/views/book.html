@@ -9,6 +9,7 @@
 </style>
 </head>
 <body>
+	<script src="/js/slider.js"></script>
 	<div class="wrapper">
 		<main class="content course">
 
@@ -132,20 +133,22 @@
 													<div class="row m-0 dropdown-row">
 														<h6 class="col-7 dropdown-header-my">Возрослые:</h6>
 														<button id="adultSub" class="col-2 dropdown-item-my" type="button" onclick="sub('adult')" disabled>-</button>
-														<span id="adultCount" class="col-1 dropdown-header-my">1</span>
+														<span id="adultCount" th:field="*{adultCount}" class="col-1 dropdown-header-my">1</span>
+														<input type="text" id="adultInput" th:field="*{adultCount}" th:value="1" hidden="" />
 														<button id="adultAdd" class="col-2 dropdown-item-my" type="button" onclick="add('adult')">+</button>
 													</div>
 													<div class="row m-0 dropdown-row">
 														<h6 class="col-7 dropdown-header-my">Дети:</h6>
 														<button id="childSub" class="col-2 dropdown-item-my" type="button" onclick="sub('child')" disabled>-</button>
-														<span id="childCount" class="col-1 dropdown-header-my">0</span>
+														<span id="childCount" th:field="*{childCount}" class="col-1 dropdown-header-my">0</span>
+														<input type="text" id="childInput" th:field="*{childCount}" th:value="0" hidden="" />
 														<button id="childAdd" class="col-2 dropdown-item-my" type="button" onclick="add('child')">+</button>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="manage-div col-md-2 col-12 px-1">
-											<button type="button" id="stage1" disabled="disabled">Найти номера</button>
+											<button type="button" id="stage1" disabled="disabled" style="height: 65.6px;">Найти номера</button>
 										</div>
 									</div>
 									<div class="notice">

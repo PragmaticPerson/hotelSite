@@ -95,7 +95,7 @@
 				<div class="main_frame">
 					<p class="text-center" th:text="${room.description}"></p>
 					<br>
-					<iframe width="100%" height="640" allowfullscreen th:src="${'https://momento360.com/e/uc/' + room.panoramaUrlId}"></iframe>
+					<iframe width="100%" height="640" allowfullscreen th:src="${'https://momento360.com/e/uc/' + room.panoramaUrlId + '?pan-speed=-0.05'}"></iframe>
 				</div>
 				<div th:insert="fragments/footer :: footer"></div>
 			</div>

@@ -11,8 +11,9 @@
 
 		<div class="mobileMenu d-block d-lg-none">
 			<div class="mobileButtonDiv" style="display: flex;">
-				<a id="mobile-button" style="margin: 0 20px;"> <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502"
-						x="0px" y="0px" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
+				<a id="mobile-button" style="margin: 0 20px;">
+					<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502" x="0px" y="0px"
+						xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
 						<g>
 						<g>
 							<g>
@@ -41,7 +42,8 @@
 						</svg>
 				</a>
 				<div id="mobileLogo" style="display: none; margin: 22px 20px 20px 20px;">
-					<a href="index.html"> <img src="/img/knd.png" alt="logo">
+					<a href="index.html">
+						<img src="/img/knd.png" alt="logo">
 					</a>
 				</div>
 			</div>
@@ -75,78 +77,110 @@
 					</li>
 				</ul>
 				<div class="m-social">
-					<a href="https://vk.com/pragmatic_person" id="vk"> <i class="fa fa-vk"></i>
-					</a> <br> <a href="" id="inst"> <i class="fa fa-instagram"></i>
+					<a href="https://vk.com/pragmatic_person" id="vk">
+						<i class="fa fa-vk"></i>
+					</a>
+					<br>
+					<a href="" id="inst">
+						<i class="fa fa-instagram"></i>
 					</a>
 				</div>
 			</div>
 		</div>
 
-		<div>
-			<h2 class="text-center my-4">Edit reservation</h2>
+		<div id="main_content">
+			<h2 class="text-center my-4">Редактирование записи бронирования</h2>
 			<div class="d-flex justify-content-center m-3">
 				<div th:if="${error != null}">
 					<div class="p-3 mb-2 bg-warning text-dark">
-						<span th:text="${error}"></span><br>
+						<span th:text="${error}"></span>
+						<br>
 					</div>
 				</div>
-				<form class="w-50" action="#" th:action="@{/admin/book/{id}(id=${reservation.id})}" th:object="${reservation}" method="post">
-					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">id:</label>
+				<form action="#" th:action="@{/admin/book/{id}(id=${reservation.id})}" th:object="${reservation}" method="post">
+					<div class="row mx-0">
+						<div class="col-lg-6 col-12">
+							<div class="container-fluid">
+								<div class="row my-1">
+									<div class="col-3 col-md-5">
+										<label class="col-form-label">id:</label>
+									</div>
+									<div class="col">
+										<input class="form-control" type="text" th:field="*{id}" disabled="disabled" required />
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-4 col-md-5">
+										<label class="col-form-label">Account:</label>
+									</div>
+									<div class="col">
+										<input type="hidden" th:field="*{user.id}" required />
+										<a class="form-control" th:href="@{/account/{id}(id=*{user.id})}" th:text="*{user.name + ' ' + user.surname}">User</a>
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-4 col-md-5">
+										<label class="col-form-label">Adult count:</label>
+									</div>
+									<div class="col">
+										<input class="form-control" type="text" th:field="*{adultCount}" required />
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-4 col-md-5">
+										<label class="col-form-label">Child count:</label>
+									</div>
+									<div class="col">
+										<input class="form-control" type="text" th:field="*{childCount}" required />
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-4 col-md-5">
+										<label class="col-form-label">Settling:</label>
+									</div>
+									<div class="col">
+										<input class="form-control" type="text" th:field="*{settling}" required />
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-4 col-md-5">
+										<label class="col-form-label">Eviction:</label>
+									</div>
+									<div class="col">
+										<input class="form-control" type="text" th:field="*{eviction}" required />
+									</div>
+								</div>
+								<div class="row my-1">
+									<div class="col-4 col-md-5">
+										<label class="col-form-label">Total price:</label>
+									</div>
+									<div class="col">
+										<input class="form-control" type="text" th:field="*{totalPrice}" required />
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="col">
-							<input class="form-control" type="text" th:field="*{id}" disabled="disabled" required />
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Account:</label>
-						</div>
-						<div class="col">
-							<input type="hidden" th:field="*{user.id}" required />
-							<a class="form-control" th:href="@{/account/{id}(id=*{user.id})}" th:text="*{user.name + ' ' + user.surname}">User</a>
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">People count:</label>
-						</div>
-						<div class="col">
-							<input class="form-control" type="text" th:field="*{peopleCount}" required />
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Settling:</label>
-						</div>
-						<div class="col">
-							<input class="form-control" type="text" th:field="*{settling}" required />
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Eviction:</label>
-						</div>
-						<div class="col">
-							<input class="form-control" type="text" th:field="*{eviction}" required />
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Rooms:</label>
-						</div>
-						<div class="col">
-							<select class="form-select" th:field="*{rooms}" multiple="multiple" required>
-								<option value="-1" hidden="">Please select...</option>
-								<option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.title}"></option>
-							</select>
-						</div>
-					</div>
 
-					<div class="form-group row">
-						<input class="btn m-1 btn-success col" type="submit" value="Save" />
-						<input class="btn m-1 btn-secondary col" type="reset" value="Reset" />
+						<div class="col-lg-6 col-12 px-5 px-lg-0">
+							<div class="container-fluid">
+								<div class="row my-2">
+									<div class="col">
+										<label class="col-form-label">Rooms:</label>
+									</div>
+									<div class="col">
+										<select class="form-select" th:field="*{rooms}" multiple="multiple" required>
+											<option value="-1" hidden="">Please select...</option>
+											<option th:each="room : ${rooms}" th:value="${room.id}" th:text="${'Type: ' + room.type.id + '; ' + room.type.title}"></option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<input class="btn m-1 btn-success col" type="submit" value="Save" />
+									<input class="btn m-1 btn-secondary col" type="reset" value="Reset" />
+								</div>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>

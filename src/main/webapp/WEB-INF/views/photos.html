@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head th:include="fragments/head :: headFragment">
-	<title id="pageTitle">Фотографии</title>
+<title id="pageTitle">Фотографии</title>
 </head>
 <body>
 	<script src="../js/masonry.pkgd.min.js"></script>
@@ -225,38 +225,24 @@
 	<script src="../js/script.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script>
-		$(document)
-				.ready(
-						function() {
-
-							$(".image")
-									.click(
-											function() {
-												var img = $(this);
-												var src = img.attr('src');
-												$("body")
-														.append(
-																"<div class='popup'>"
-																		+ "<div class='popup_bg'></div>"
-																		+ "<img src='"+src+"' class='popup_img' />"
-																		+ "</div>");
-												$(".popup").fadeIn(400);
-												$(".popup_bg")
-														.click(
-																function() {
-																	$(".popup")
-																			.fadeOut(
-																					400);
-																	setTimeout(
-																			function() {
-																				$(
-																						".popup")
-																						.remove();
-																			},
-																			400);
-																});
-											});
-						});
+		$(document).ready(function() {
+			$(".image").click(function() {
+				var img = $(this);
+				var src = img.attr('src');
+				$("body").append(
+						"<div class='popup'>"
+						+ "<div class='popup_bg'></div>"
+						+ "<img src='"+src+"' class='popup_img' />"
+						+ "</div>");
+				$(".popup").fadeIn(400);
+				$(".popup_bg").click(function() {
+					$(".popup").fadeOut(400);
+					setTimeout(function() {
+						$(".popup").remove();
+						}, 400);
+					});
+				});
+			});
 
 		jQuery(document).ready(function($) {
 			$('.grid').masonry({

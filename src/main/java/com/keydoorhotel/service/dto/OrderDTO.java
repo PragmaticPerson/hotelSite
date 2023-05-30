@@ -1,51 +1,54 @@
 package com.keydoorhotel.service.dto;
 
-import java.util.List;
+import static java.time.temporal.ChronoUnit.DAYS;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 import com.keydoorhotel.service.formatter.DateFormatter;
 import com.keydoorhotel.service.model.Reservation;
 import com.keydoorhotel.service.model.User;
-import com.keydoorhotel.service.model.Room;
 
 public class OrderDTO {
-	@NotBlank(message = "Dates not valid")
+
 	private String dates;
-
-	@Min(value = 1, message = "Count of people must be more then 1")
-	@Max(value = 8, message = "Too many people")
-	private int peopleCount;
-
-	@NotNull
+	private int adultCount;
+	private int childCount;
+	private String[] roomTypes;
 	private User user;
 
-	@NotEmpty
-	private List<Room> rooms;
-
 	public OrderDTO() {
+		super();
 	}
 
-	public OrderDTO(String dates, int peopleCount, User user, List<Room> rooms) {
+	public OrderDTO(String dates, int adultCount, int childCount, String[] roomTypes, User user) {
+		super();
 		this.dates = dates;
-		this.peopleCount = peopleCount;
+		this.adultCount = adultCount;
+		this.childCount = childCount;
+		this.roomTypes = roomTypes;
 		this.user = user;
-		this.rooms = rooms;
 	}
 
 	public Reservation getReservation() {
-		Reservation order = new Reservation();
+		Reservation reservation = new Reservation();
 		String[] splittedDates = dates.split("-");
-		order.setSettling(DateFormatter.getDate(splittedDates[0]));
-		order.setEviction(DateFormatter.getDate(splittedDates[1]));
-		order.setPeopleCount(peopleCount);
-		order.setRooms(rooms);
-		order.setUser(user);
-		return order;
+		reservation.setSettling(DateFormatter.getDate(splittedDates[0]));
+		reservation.setEviction(DateFormatter.getDate(splittedDates[1]));
+		reservation.setAdultCount(adultCount);
+		reservation.setChildCount(childCount);
+		reservation.setUser(user);
+		reservation.setTotalPrice(0);
+
+		return reservation;
+	}
+
+	public int getDurationInDates() {
+		String[] splittedDates = dates.split("-");
+		LocalDate startDate = DateFormatter.getDate(splittedDates[0]);
+		LocalDate endDate = DateFormatter.getDate(splittedDates[1]);
+		return (int) DAYS.between(startDate, endDate);
 	}
 
 	public String getDates() {
@@ -56,12 +59,28 @@ public class OrderDTO {
 		this.dates = dates;
 	}
 
-	public int getPeopleCount() {
-		return peopleCount;
+	public int getAdultCount() {
+		return adultCount;
 	}
 
-	public void setPeopleCount(int peopleCount) {
-		this.peopleCount = peopleCount;
+	public void setAdultCount(int adultCount) {
+		this.adultCount = adultCount;
+	}
+
+	public int getChildCount() {
+		return childCount;
+	}
+
+	public void setChildCount(int childCount) {
+		this.childCount = childCount;
+	}
+
+	public String[] getRoomTypes() {
+		return roomTypes;
+	}
+
+	public void setRoomTypes(String[] rooms) {
+		this.roomTypes = rooms;
 	}
 
 	public User getUser() {
@@ -72,18 +91,32 @@ public class OrderDTO {
 		this.user = user;
 	}
 
-	public List<Room> getRooms() {
-		return rooms;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(roomTypes);
+		result = prime * result + Objects.hash(adultCount, childCount, dates, user);
+		return result;
 	}
 
-	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderDTO other = (OrderDTO) obj;
+		return adultCount == other.adultCount && childCount == other.childCount && Objects.equals(dates, other.dates)
+				&& Arrays.equals(roomTypes, other.roomTypes) && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "OrderDTO [dates=" + dates + ", peopleCount=" + peopleCount + ", user=" + user + ", rooms=" + rooms
-				+ "]";
+		return "OrderDTO [dates=" + dates + ", adultCount=" + adultCount + ", childCount=" + childCount + ", rooms="
+				+ Arrays.toString(roomTypes) + ", user=" + user + "]";
 	}
 
 }

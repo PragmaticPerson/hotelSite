@@ -539,7 +539,6 @@ fieldset {
 /* Rooms */
 .description {
 	text-align: center;
-	margin: 30px 0;
 	font-family: 'Open Sans', sans-serif;
 	min-height: 100%;
 	display: block;
@@ -549,7 +548,7 @@ fieldset {
 	margin: 30px 0;
 }
 
-.aboutRoom:hover {
+.aboutRoom:hover, .cat:hover {
 	color: black;
 	text-decoration: none;
 	box-shadow: 1px 1px 2px #555, -1px -1px 2px #555;
@@ -572,6 +571,7 @@ fieldset {
 	text-decoration: none;
 	padding: 10px 30px;
 	background-color: #C69249;
+	border: none;
 }
 
 .aboutHotelText {
@@ -878,6 +878,13 @@ input[type=file]::file-selector-button:hover, #uploadImages:hover {
 	color: #fff;
 }
 
+#totalOrder {
+	display: block;
+	padding: 10px 15px;
+	background-color: white;
+	border-bottom: 2px solid #C69249;
+}
+
 /* Booking page */
 .dropdown-toggle-my {
 	background-color: #fff;
@@ -888,6 +895,46 @@ input[type=file]::file-selector-button:hover, #uploadImages:hover {
 	font-size: 16px;
 	cursor: pointer;
 	align-items: center;
+}
+
+.cat {
+	margin: 4px;
+	background-color: #104068;
+	overflow: hidden;
+	float: left;
+}
+
+.cat label {
+	float: left;
+	line-height: 3.0em;
+	width: 8.0em;
+	height: 44px;
+	user-select: none;
+}
+
+.cat label span {
+	text-align: center;
+	display: block;
+}
+
+.cat label input {
+	position: absolute;
+	display: none;
+	color: #fff !important;
+}
+/* selects all of the text within the input element and changes the color of the text */
+.cat label input ~span {
+	color: #fff;
+}
+
+/* This will declare how a selected input will look giving generic properties */
+.cat input:checked ~span {
+	color: #ffffff;
+	text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+.history input:checked ~span {
+	background-color: #82D44E;
 }
 
 .dropdown-toggle-my:focus {
@@ -946,6 +993,19 @@ input[type=file]::file-selector-button:hover, #uploadImages:hover {
 
 .dropdown.open .dropdown-menu {
 	display: block;
+}
+
+.reservationRow {
+	background-color: rgba(0, 0, 0, .05);
+}
+
+.roomsRow {
+	background-color: rgb(255, 255, 255);
+}
+
+.inAdminImage {
+	max-width: 50%;
+	height: auto;
 }
 
 @media screen and (min-width: 1468px) {

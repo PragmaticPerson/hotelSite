@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,6 +76,7 @@ public class UserService implements UserDetailsService {
 		return repository.save(user);
 	}
 
+	@Transactional
 	public void updatePassword(User user, String newPass) {
 		repository.updateUserPassword(user.getId(), encoder.encode(newPass));
 		tokenService.deleteToken(user.getId());

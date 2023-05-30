@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.keydoorhotel.service.dto.MobiscrollResourceDTO;
 
 @Entity
 @Table(name = "room")
@@ -18,53 +22,32 @@ public class Room {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "title")
-	private String title;
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "source")
-	private String source;
-
-	@Column(name = "max_people")
-	private int maxPeople;
-
-	@Column(name = "price")
-	private int price;
-
-	@Column(name = "image_count")
-	private int imageCount;
-
-	@Column(name = "panorama_url_id")
-	private String panoramaUrlId;
-
-	@Column(name = "description")
-	private String description;
+	@ManyToOne
+	@JoinColumn(name = "type_id", referencedColumnName = "id")
+	private RoomType type;
 
 	public Room() {
 	}
 
-	public Room(String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId,
-			String description) {
-		super();
-		this.title = title;
-		this.source = source;
-		this.maxPeople = maxPeople;
-		this.price = price;
-		this.imageCount = imageCount;
-		this.panoramaUrlId = panoramaUrlId;
-		this.description = description;
-	}
-
-	public Room(int id, String title, String source, int maxPeople, int price, int imageCount, String panoramaUrlId,
-			String description) {
+	public Room(int id, String name, RoomType type) {
 		super();
 		this.id = id;
-		this.title = title;
-		this.source = source;
-		this.maxPeople = maxPeople;
-		this.price = price;
-		this.imageCount = imageCount;
-		this.panoramaUrlId = panoramaUrlId;
-		this.description = description;
+		this.name = name;
+		this.type = type;
+	}
+
+	public MobiscrollResourceDTO convertToMobiscrollResourceDTO() {
+		String name = String.format("Room %d %s", getId(), getType().getTitle());
+
+		var resource = new MobiscrollResourceDTO();
+		resource.setId(getId());
+		resource.setName(name);
+		resource.setColor("#4981d6");
+
+		return resource;
 	}
 
 	public int getId() {
@@ -75,65 +58,25 @@ public class Room {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getSource() {
-		return source;
+	public RoomType getType() {
+		return type;
 	}
 
-	public void setSource(String source) {
-		this.source = source;
-	}
-
-	public int getMaxPeople() {
-		return maxPeople;
-	}
-
-	public void setMaxPeople(int maxPeople) {
-		this.maxPeople = maxPeople;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public int getImageCount() {
-		return imageCount;
-	}
-
-	public void setImageCount(int imageCount) {
-		this.imageCount = imageCount;
-	}
-
-	public String getPanoramaUrlId() {
-		return panoramaUrlId;
-	}
-
-	public void setPanoramaUrlId(String panoramaUrlId) {
-		this.panoramaUrlId = panoramaUrlId;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(RoomType type) {
+		this.type = type;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, imageCount, maxPeople, panoramaUrlId, price, source, title);
+		return Objects.hash(id, name, type);
 	}
 
 	@Override
@@ -145,15 +88,11 @@ public class Room {
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		return Objects.equals(description, other.description) && id == other.id && imageCount == other.imageCount
-				&& maxPeople == other.maxPeople && Objects.equals(panoramaUrlId, other.panoramaUrlId)
-				&& price == other.price && Objects.equals(source, other.source) && Objects.equals(title, other.title);
+		return id == other.id && Objects.equals(name, other.name) && Objects.equals(type, other.type);
 	}
 
 	@Override
 	public String toString() {
-		return "Room [id=" + id + ", title=" + title + ", source=" + source + ", maxPeople=" + maxPeople + ", price="
-				+ price + ", imageCount=" + imageCount + ", panoramaUrlId=" + panoramaUrlId + ", description="
-				+ description + "]";
+		return "Room [id=" + id + ", name=" + name + ", type=" + type + "]";
 	}
 }

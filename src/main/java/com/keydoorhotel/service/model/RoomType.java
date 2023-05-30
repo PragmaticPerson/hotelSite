@@ -1,44 +1,56 @@
-package com.keydoorhotel.service.dto;
+package com.keydoorhotel.service.model;
 
 import java.util.Objects;
 
-import com.keydoorhotel.service.model.RoomType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class RoomDTO {
+@Entity
+@Table(name = "room_type")
+public class RoomType {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "source")
 	private String source;
-	private int maxPeople;
+
+	@Column(name = "price")
 	private int price;
+
+	@Column(name = "max_people")
+	private int maxPeople;
+
+	@Column(name = "image_count")
 	private int imageCount;
+
+	@Column(name = "panorama_url_id")
 	private String panoramaUrlId;
+
+	@Column(name = "description")
 	private String description;
 
-	public RoomDTO() {
+	public RoomType() {
 		super();
 	}
 
-	public RoomDTO(RoomType room) {
-		super();
-		id = room.getId();
-		title = room.getTitle();
-		maxPeople = room.getMaxPeople();
-		price = room.getPrice();
-		source = room.getSource();
-		imageCount = room.getImageCount();
-		panoramaUrlId = room.getPanoramaUrlId();
-		description = room.getDescription();
-	}
-
-	public RoomDTO(int id, String title, int maxPeople, int price, String source, int imageCount, String panoramaUrlId,
+	public RoomType(int id, String title, String source, int price, int maxPeople, int imageCount, String panoramaUrlId,
 			String description) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.maxPeople = maxPeople;
-		this.price = price;
 		this.source = source;
+		this.price = price;
+		this.maxPeople = maxPeople;
 		this.imageCount = imageCount;
 		this.panoramaUrlId = panoramaUrlId;
 		this.description = description;
@@ -60,12 +72,12 @@ public class RoomDTO {
 		this.title = title;
 	}
 
-	public int getMaxPeople() {
-		return maxPeople;
+	public String getSource() {
+		return source;
 	}
 
-	public void setMaxPeople(int maxPeople) {
-		this.maxPeople = maxPeople;
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public int getPrice() {
@@ -76,12 +88,12 @@ public class RoomDTO {
 		this.price = price;
 	}
 
-	public String getSource() {
-		return source;
+	public int getMaxPeople() {
+		return maxPeople;
 	}
 
-	public void setSource(String source) {
-		this.source = source;
+	public void setMaxPeople(int maxPeople) {
+		this.maxPeople = maxPeople;
 	}
 
 	public int getImageCount() {
@@ -121,9 +133,16 @@ public class RoomDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RoomDTO other = (RoomDTO) obj;
+		RoomType other = (RoomType) obj;
 		return Objects.equals(description, other.description) && id == other.id && imageCount == other.imageCount
 				&& maxPeople == other.maxPeople && Objects.equals(panoramaUrlId, other.panoramaUrlId)
 				&& price == other.price && Objects.equals(source, other.source) && Objects.equals(title, other.title);
+	}
+
+	@Override
+	public String toString() {
+		return "RoomType [id=" + id + ", title=" + title + ", source=" + source + ", price=" + price + ", maxPeople="
+				+ maxPeople + ", imageCount=" + imageCount + ", panoramaUrlId=" + panoramaUrlId + ", description="
+				+ description + "]";
 	}
 }

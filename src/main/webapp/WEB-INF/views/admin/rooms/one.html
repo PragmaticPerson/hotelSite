@@ -187,7 +187,6 @@
 														<button class="delete-btn trash-button" th:attr="onclick=|deleteButtons('${i}')|" type="button">
 															<span class='fa fa-trash'></span>
 														</button>
-														<!-- <img th:src="@{'data:image/png;base64, ' + ${i}}" class="d-block w-100" alt="roomImage"> -->
 														<img th:src="${'/img/rooms/' + room.source + '/' + i}" class="d-block w-100" alt="roomImage">
 													</div>
 												</div>

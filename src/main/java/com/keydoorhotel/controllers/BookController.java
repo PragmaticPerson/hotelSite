@@ -1,6 +1,7 @@
 package com.keydoorhotel.controllers;
 
 import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.keydoorhotel.service.dto.OrderDTO;
 import com.keydoorhotel.service.formatter.DateFormatter;
@@ -41,6 +43,20 @@ public class BookController {
 		return "book";
 	}
 
+	@GetMapping("/api/rooms/{start}/{end}")
+	public String getAvaliableRoomsByDateGetRequest(@PathVariable @NotNull String start,
+			@PathVariable @NotNull String end, @RequestParam int adult, @RequestParam int child, Model model) {
+		LocalDate startDate = DateFormatter.getDate(start);
+		LocalDate endDate = DateFormatter.getDate(end);
+		var diff = DAYS.between(startDate, endDate);
+		addOrderAttribute(model);
+
+		var listOfTypes = roomService.findEmptyRoomTypes(startDate, endDate, adult, child);
+		model.addAttribute("roomsList", listOfTypes);
+		model.addAttribute("days", diff);
+		return "fragments/book :: roomsList";
+	}
+
 	@PostMapping("/book")
 	public String fromBookPagePostRequest(@ModelAttribute("order") @Valid OrderDTO orderDTO, BindingResult result,
 			Model model) throws MessagingException {
@@ -50,18 +66,8 @@ public class BookController {
 			return "book";
 		}
 		userService.createUser(orderDTO.getUser());
-		reservationService.save(orderDTO.getReservation());
+		reservationService.save(orderDTO);
 		return "redirect:/";
-	}
-
-	@GetMapping("/api/rooms/{start}/{end}")
-	public String getAvaliableRoomsByDateGetRequest(@PathVariable @NotNull String start,
-			@PathVariable @NotNull String end, Model model) {
-		LocalDate startDate = DateFormatter.getDate(start);
-		LocalDate endDate = DateFormatter.getDate(end);
-		addOrderAttribute(model);
-		model.addAttribute("roomsList", roomService.findRoomsByDate(startDate, endDate));
-		return "fragments/book :: roomsList";
 	}
 
 	private void addOrderAttribute(Model model) {

@@ -5,43 +5,119 @@
 </head>
 
 <body>
-	<div th:fragment="roomsList" th:unless="${#lists.isEmpty(roomsList)}" id="formTwo">
-		<div th:each="room : ${roomsList}">
-			<div class="row">
-				<div class="col-12 col-lg-6">
-					<img th:src="@{'data:image/jpeg;base64,' + ${room.images.get(0).image}}" class="popup_img_booking" alt="room" />
-				</div>
-				<div class="col-12 col-lg-6">
-					<label>
-						<h3 th:text="${room.title}" />
-						<br />
-						<p th:text="${'Price per night: ' + room.price}" />
-						<br /> 
-						<a class="aboutRoom" th:href="@{${'/rooms/' + room.id}}">Подробнее</a>
-						<input th:field="${order.rooms}" th:value="${room.id}" type="checkbox">
-					</label>
+	<div th:fragment="roomsList" th:unless="${#lists.isEmpty(roomsList)}">
+		<div th:each="room : ${roomsList}" class="row m-1 py-3">
+			<div class="col-12 col-lg-6 order-12 order-lg-1">
+				<div class="slider" th:classappend="${'slider-' + room.source}">
+					<div class="slider__wrapper">
+						<div class="slider__item" th:each="i : ${#numbers.sequence(1, room.imageCount)}">
+							<img th:src="${'/img/rooms/' + room.source + '/' + i + '.png'}" class="d-block w-100" alt="roomImage">
+						</div>
+					</div>
+					<a class="slider__control slider__control_left" href="#" role="button"></a>
+					<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
 				</div>
 			</div>
+			<div class="col-12 col-lg-6 order-1 order-lg-12 my-2 my-lg-0">
+				<div class="d-flex align-items-center h-100 justify-content-center flex-column">
+					<h3 th:text="${room.title}"></h3>
+					<br />
+					<th:block th:with="totalForRoom=${room.price * days}">
+						<span th:text="${'За весь период проживания: ' + totalForRoom + ' руб.'}"></span>
+						<span th:text="${'Добавьте ' + #numbers.formatInteger(totalForRoom * 0.1, 1) + ' руб. если хотите завтрак.'}"></span>
+					</th:block>
+					<br />
+					<div class="d-flex align-items-center">
+						<a class="aboutRoom" th:href="${'/rooms/' + room.source}">ПОДРОБНЕЕ</a>
+						<div class="cat history">
+							<label class="m-0">
+								<input th:id="${'select-' + room.source}" th:value="${room.id}" th:field="${order.roomTypes}" type="checkbox" />
+								<span th:id="${'span-' + room.source}" class="cat-span">Выбрать</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script th:inline="javascript" class="script-room">
+				/*<![CDATA[*/
+
+				const thisRoomCost = Number(/*[[${room.price * days}]]*/"0");
+
+				document
+						.getElementById(
+						/*[[${'select-' + room.source}]]*/'#boxid')
+						.addEventListener(
+								'change',
+								function(event) {
+									var text = document
+											.getElementById(/*[[${'span-' + room.source}]]*/'#boxid');
+									if (text.textContent === "Выбрать") {
+										text.textContent = "Выбрано";
+										selectedRooms
+												.push(/*[[${room.id}]]*/'0');
+										updateTotalPrice(thisRoomCost);
+									} else {
+										text.textContent = "Выбрать";
+										const index = selectedRooms
+												.indexOf(/*[[${room.id}]]*/'0');
+										if (index > -1) {
+											selectedRooms.splice(index, 1);
+											updateTotalPrice(thisRoomCost
+													* (-1));
+										}
+									}
+								});
+
+				var roomSource = /*[[${room.source}]]*/'1-1L';
+				var className = '.slider-' + roomSource;
+				multiItemSlider(className);
+
+				/*]]>*/
+			</script>
+		</div>
+		<div id="totalOrder">
+			<span>Сумма заказа: </span>
+			<span id="totalPrice">0</span>
+		</div>
+		<div class="row mt-3">
+			<div class="col-12 col-md-6">
+				<label>Имя:</label>
+				<br>
+				<input class="w-100" type="text" id="clientName" th:field="${order.user.name}" required>
+			</div>
+			<div class="col-12 col-md-6">
+				<label>Фамилия:</label>
+				<br>
+				<input class="w-100" type="text" id="clientSurname" th:field="${order.user.surname}" required>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-12 col-md-6">
-				<label>Имя:</label><br> <input class="w-100" type="text" th:field="${order.user.name}" required>
+				<label>Почта:</label>
+				<br>
+				<input class="w-100" type="email" id="clientEmail" th:field="${order.user.email}" placeholder="smth@gmail.com" required>
 			</div>
 			<div class="col-12 col-md-6">
-				<label>Фамилия:</label><br> <input class="w-100" type="text" th:field="${order.user.surname}" required>
+				<label>Телефон:</label>
+				<br>
+				<input class="w-100" type="tel" id="clientPhone" th:field="${order.user.phone}" placeholder="+7-777-777-77-77" required>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mt-3">
 			<div class="col-12 col-md-6">
-				<label>Почта:</label><br> <input class="w-100" type="email" th:field="${order.user.email}" placeholder="smth@gmail.com" required>
-			</div>
-			<div class="col-12 col-md-6">
-				<label>Телефон:</label><br> <input class="w-100" type="tel" th:field="${order.user.phone}" placeholder="+7-777-777-77-77" required>
+				<input class="aboutRoom" type="submit" text="Заказать" />
 			</div>
 		</div>
-		<div class="row">
-			<input class="bg-info my-3" type="submit" text="Заказать" />
-		</div>
+		<script type="text/javascript" class="script-room">
+			const totalPriceElement = document.getElementById('totalPrice');
+			let totalPrice = 0;
+
+			function updateTotalPrice(price) {
+				totalPrice += price;
+				totalPriceElement.textContent = totalPrice;
+			}
+		</script>
 	</div>
 </body>
 </html>

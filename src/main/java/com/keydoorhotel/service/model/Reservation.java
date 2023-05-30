@@ -1,6 +1,9 @@
 package com.keydoorhotel.service.model;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +18,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.keydoorhotel.service.dto.MobiscrollTimelineDTO;
 
 @Entity
 @Table(name = "reservation")
@@ -34,8 +40,11 @@ public class Reservation {
 			@JoinColumn(name = "room_id") })
 	private List<Room> rooms;
 
-	@Column(name = "people_count")
-	private int peopleCount;
+	@Column(name = "adult_count")
+	private int adultCount;
+
+	@Column(name = "child_count")
+	private int childCount;
 
 	@Column(name = "settling")
 	private LocalDate settling;
@@ -43,15 +52,45 @@ public class Reservation {
 	@Column(name = "eviction")
 	private LocalDate eviction;
 
+	@Column(name = "total_price")
+	private int totalPrice;
+
+	@Transient
+	private int dateDiff;
+
 	public Reservation() {
 	}
 
-	public Reservation(User user, List<Room> rooms, int peopleCount, LocalDate start, LocalDate end) {
+	public Reservation(int id, User user, List<Room> rooms, int adultCount, int childCount, LocalDate settling,
+			LocalDate eviction, int totalPrice) {
+		super();
+		this.id = id;
 		this.user = user;
 		this.rooms = rooms;
-		this.peopleCount = peopleCount;
-		this.settling = start;
-		this.eviction = end;
+		this.adultCount = adultCount;
+		this.childCount = childCount;
+		this.settling = settling;
+		this.eviction = eviction;
+		this.totalPrice = totalPrice;
+	}
+
+	public List<MobiscrollTimelineDTO> convertToMobiscrollTimelineDTOs() {
+		List<MobiscrollTimelineDTO> data = new ArrayList<>();
+
+		for (Room r : getRooms()) {
+			var timeline = new MobiscrollTimelineDTO();
+			timeline.setEnd(getEviction().atTime(12, 0));
+			timeline.setStart(getSettling().atTime(14, 0));
+			timeline.setResource(r.getId());
+			timeline.setTitle(getUser().getSurname());
+
+			data.add(timeline);
+		}
+		return data;
+	}
+
+	public int getDurationInDates() {
+		return (int) DAYS.between(settling, eviction);
 	}
 
 	public int getId() {
@@ -78,12 +117,20 @@ public class Reservation {
 		this.rooms = rooms;
 	}
 
-	public int getPeopleCount() {
-		return peopleCount;
+	public int getAdultCount() {
+		return adultCount;
 	}
 
-	public void setPeopleCount(int peopleCount) {
-		this.peopleCount = peopleCount;
+	public void setAdultCount(int adultCount) {
+		this.adultCount = adultCount;
+	}
+
+	public int getChildCount() {
+		return childCount;
+	}
+
+	public void setChildCount(int childCount) {
+		this.childCount = childCount;
 	}
 
 	public LocalDate getSettling() {
@@ -102,9 +149,29 @@ public class Reservation {
 		this.eviction = eviction;
 	}
 
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public void addTotalPrice(int price) {
+		totalPrice += price;
+	}
+
+	public int getDateDiff() {
+		return dateDiff;
+	}
+
+	public void setDateDiff(int dateDiff) {
+		this.dateDiff = dateDiff;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(eviction, id, peopleCount, rooms, settling, user);
+		return Objects.hash(adultCount, childCount, eviction, id, rooms, settling, totalPrice, user);
 	}
 
 	@Override
@@ -116,24 +183,16 @@ public class Reservation {
 		if (getClass() != obj.getClass())
 			return false;
 		Reservation other = (Reservation) obj;
-		return Objects.equals(eviction, other.eviction) && id == other.id && peopleCount == other.peopleCount
-				&& Objects.equals(rooms, other.rooms) && Objects.equals(settling, other.settling)
+		return adultCount == other.adultCount && childCount == other.childCount
+				&& Objects.equals(eviction, other.eviction) && id == other.id && Objects.equals(rooms, other.rooms)
+				&& Objects.equals(settling, other.settling) && totalPrice == other.totalPrice
 				&& Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", user=" + user + ", rooms=" + roomsToString() + ", peopleCount="
-				+ peopleCount + ", settling=" + settling + ", eviction=" + eviction + "]";
-	}
-
-	private String roomsToString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
-		for (Room room : rooms) {
-			sb.append(room);
-		}
-		sb.append("]");
-		return sb.toString();
+		return "Reservation [id=" + id + ", user=" + user + ", rooms=" + rooms + ", adultCount=" + adultCount
+				+ ", childCount=" + childCount + ", settling=" + settling + ", eviction=" + eviction + ", totalPrice="
+				+ totalPrice + "]";
 	}
 }

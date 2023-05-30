@@ -1,9 +1,9 @@
 package com.keydoorhotel.controllers;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.keydoorhotel.service.dto.MobiscrollResourceDTO;
+import com.keydoorhotel.service.dto.MobiscrollTimelineDTO;
 import com.keydoorhotel.service.dto.RoomDTO;
 import com.keydoorhotel.service.model.Reservation;
 import com.keydoorhotel.service.model.Room;
+import com.keydoorhotel.service.model.RoomType;
 import com.keydoorhotel.service.services.ImageService;
 import com.keydoorhotel.service.services.ReservationService;
 import com.keydoorhotel.service.services.RoomService;
@@ -40,6 +44,33 @@ public class AdminController {
 		this.reservationService = reservationService;
 		this.roomService = roomService;
 		this.imageService = imageService;
+	}
+
+	@GetMapping("/api/calendar/{start}/{end}")
+	@ResponseBody
+	public List<MobiscrollTimelineDTO> getAllReservationsForPeriodForCalendar(@PathVariable("start") String startStr,
+			@PathVariable("end") String endStr, Model model) throws ParseException {
+
+		List<MobiscrollTimelineDTO> result = new ArrayList<>();
+
+		LocalDate start = LocalDate.parse(startStr.split("T")[0]);
+		LocalDate end = LocalDate.parse(endStr.split("T")[0]);
+
+		var allReservations = reservationService.findAllByDateRange(start, end);
+		allReservations.stream().forEach(r -> result.addAll(r.convertToMobiscrollTimelineDTOs()));
+
+		return result;
+	}
+
+	@GetMapping("/api/calendar/rooms")
+	@ResponseBody
+	public List<MobiscrollResourceDTO> getAllRoomsForCalendar(Model model) throws ParseException {
+
+		List<MobiscrollResourceDTO> result = new ArrayList<>();
+
+		roomService.findAll().forEach(r -> result.add(r.convertToMobiscrollResourceDTO()));
+
+		return result;
 	}
 
 	@GetMapping("/book")
@@ -84,9 +115,9 @@ public class AdminController {
 
 	@GetMapping("/rooms")
 	public ModelAndView getRooms(ModelMap model) {
-		var list = roomService.findAll();
+		var list = roomService.findAllRoomTypes();
 		List<RoomDTO> rooms = new ArrayList<>();
-		for (Room r : list) {
+		for (RoomType r : list) {
 			rooms.add(new RoomDTO(r));
 		}
 		model.put("rooms", rooms);
@@ -113,7 +144,7 @@ public class AdminController {
 
 	@GetMapping("/rooms/{id}")
 	public ModelAndView getSpecialRoom(@PathVariable("id") int id, ModelMap model) throws IOException {
-		var roomEntity = roomService.findById(id);
+		var roomEntity = roomService.findTypeById(id);
 		var imageNames = imageService.getAllImageNames(roomEntity.getSource());
 
 		model.put("images", imageNames);
@@ -144,4 +175,5 @@ public class AdminController {
 		imageService.deleteImageFromRoom(id, imageName);
 		return "redirect:/admin/rooms/" + id;
 	}
+
 }

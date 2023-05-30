@@ -11,8 +11,9 @@
 
 		<div class="mobileMenu d-block d-lg-none">
 			<div class="mobileButtonDiv" style="display: flex;">
-				<a id="mobile-button" style="margin: 0 20px;"> <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502"
-						x="0px" y="0px" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
+				<a id="mobile-button" style="margin: 0 20px;">
+					<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="width: 40px; margin: 20px 0;" viewBox="0 0 502 502" x="0px" y="0px"
+						xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" version="1.1">
 						<g>
 						<g>
 							<g>
@@ -41,7 +42,8 @@
 						</svg>
 				</a>
 				<div id="mobileLogo" style="display: none; margin: 22px 20px 20px 20px;">
-					<a href="index.html"> <img src="/img/knd.png" alt="logo">
+					<a href="index.html">
+						<img src="/img/knd.png" alt="logo">
 					</a>
 				</div>
 			</div>
@@ -75,8 +77,12 @@
 					</li>
 				</ul>
 				<div class="m-social">
-					<a href="https://vk.com/pragmatic_person" id="vk"> <i class="fa fa-vk"></i>
-					</a> <br> <a href="" id="inst"> <i class="fa fa-instagram"></i>
+					<a href="https://vk.com/pragmatic_person" id="vk">
+						<i class="fa fa-vk"></i>
+					</a>
+					<br>
+					<a href="" id="inst">
+						<i class="fa fa-instagram"></i>
 					</a>
 				</div>
 			</div>
@@ -88,14 +94,15 @@
 					<h2>История бронирования</h2>
 				</div>
 				<div>
-					<table class="table table-striped table-bordered">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">Кол-во людей</th>
 								<th scope="col">Аккаунт</th>
 								<th scope="col">Заселение</th>
-								<th scope="col">Выселенеи</th>
+								<th scope="col">Выселение</th>
+								<th scope="col">Стоимость</th>
 								<th scope="col">#</th>
 							</tr>
 						</thead>
@@ -103,13 +110,26 @@
 							<tr th:if="${reservations.empty}">
 								<td colspan="6" class="text-center">Нет доступной информации</td>
 							</tr>
-							<span th:each="r : ${reservations}">
-								<tr>
-									<td><span th:text="${r.id}"> #id </span></td>
-									<td><span th:text="${r.peopleCount}"> Count </span></td>
-									<td><a th:href="@{/account/{id}(id=${r.user.id})}" th:text="${r.user.name + ' ' + r.user.surname}"> User </a></td>
-									<td><span th:text="${r.settling}"> Settling </span></td>
-									<td><span th:text="${r.eviction}"> Eviction </span></td>
+							<th:block th:each="r : ${reservations}">
+								<tr class="reservationRow">
+									<td>
+										<span th:text="${r.id}"> #id </span>
+									</td>
+									<td>
+										<span th:text="${'Взрослые: ' + r.adultCount + '; дети: ' + r.childCount}"> Count </span>
+									</td>
+									<td>
+										<a th:href="@{/account/{id}(id=${r.user.id})}" th:text="${r.user.name + ' ' + r.user.surname}"> User </a>
+									</td>
+									<td>
+										<span th:text="${r.settling}"> Settling </span>
+									</td>
+									<td>
+										<span th:text="${r.eviction}"> Eviction </span>
+									</td>
+									<td>
+										<span th:text="${r.totalPrice}">Price </span>
+									</td>
 									<td>
 										<div>
 											<a class="fa fa-pencil custom-btn m-1 mx-2" th:href="@{/admin/book/{id}(id=${r.id})}"></a>
@@ -122,14 +142,21 @@
 										</div>
 									</td>
 								</tr>
-								<tr th:each="room : ${r.rooms}">
-									<td colspan="3"><img th:src="@{${'/img/rooms/' + room.source + '/1.png'}}" style="max-width: 10%;" alt="room" /></td>
-									<td><span th:text="${room.title}"></span></td>
-									<td><span th:text="${room.price}"></span></td>
+								<tr th:each="room : ${r.rooms}" class="roomsRow">
+									<td></td>
+									<td>
+										<span th:text="${'Id типа комнаты: ' + room.type.id}"></span>
+									</td>
+									<td>
+										<span th:text="${room.type.title}"></span>
+									</td>
+									<td colspan="2">
+										<span th:text="${'Цена за комнату: ' + r.dateDiff * room.type.price}"></span>
+									</td>
 									<td>
 										<div>
 											<form action="#" th:action="@{/admin/book/room}" method="post">
-												<input type="hidden" th:value="${r.id}" name="reservationId" /> 
+												<input type="hidden" th:value="${r.id}" name="reservationId" />
 												<input type="hidden" th:value="${room.id}" name="roomId" />
 												<button class="delete-btn custom-btn" type="submit" name="delete">
 													<span class='fa fa-trash'></span>
@@ -137,15 +164,14 @@
 											</form>
 										</div>
 									</td>
+									<td></td>
 								</tr>
-							</span>
-
+							</th:block>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>

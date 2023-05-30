@@ -25,4 +25,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	@Query(nativeQuery = true, value = "DELETE FROM room_reservation WHERE reservation_id = :reservationId AND "
 			+ "room_id = :roomId")
 	public void deleteRoom(int reservationId, int roomId);
+
+	@Query("SELECT r FROM Reservation r WHERE "
+			+ "(:start BETWEEN r.settling AND r.eviction) OR (:end BETWEEN r.settling AND r.eviction) OR "
+			+ "(r.settling BETWEEN :start AND :end) OR (r.eviction BETWEEN :start AND :end)")
+	public List<Reservation> findAllByDateRange(@Param("start") LocalDate start, @Param("end") LocalDate end);
 }

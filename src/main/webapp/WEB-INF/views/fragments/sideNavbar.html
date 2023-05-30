@@ -13,11 +13,8 @@
 					<div sec:authorize="!isAuthenticated()">
 						<a href="/login" id="login-link">Войти</a>
 					</div>
-					<div sec:authorize="hasRole('USER')">
+					<div sec:authorize="isAuthenticated()">
 						<a href="/account" id="login-link">Аккаунт</a>
-					</div>
-					<div sec:authorize="hasRole('ADMIN')">
-						<a href="/admin" id="login-link">Admin</a>
 					</div>
 				</div>
 				<nav class="headermenu">

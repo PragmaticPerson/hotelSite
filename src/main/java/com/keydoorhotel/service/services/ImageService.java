@@ -37,7 +37,7 @@ public class ImageService {
 
 	public void saveImageForRoom(int roomId, MultipartFile file) {
 		var room = roomService.findById(roomId);
-		Path imageLocation = load(room.getSource());
+		Path imageLocation = load(room.getType().getSource());
 
 		store(imageLocation, file);
 
@@ -46,7 +46,7 @@ public class ImageService {
 
 	public void deleteImageFromRoom(int roomId, String imageName) {
 		var room = roomService.findById(roomId);
-		Path imageLocation = load(room.getSource() + "\\" + imageName);
+		Path imageLocation = load(room.getType().getSource() + "\\" + imageName);
 
 		try {
 			Files.delete(imageLocation);
@@ -70,19 +70,21 @@ public class ImageService {
 		});
 		return resultList;
 	}
-	
+
 	public List<String> getAllImageNames(String source) {
 		var path = load(source);
 		var resultList = new ArrayList<String>();
 		loadAll(path).forEach(p -> {
 			resultList.add(p.getFileName().toString());
 		});
-		
+
 		return resultList;
 	}
 
 	private void changeImageCountInRoomEntity(Room room, int change) {
-		room.setImageCount(room.getImageCount() + change);
+		var roomType = room.getType();
+		roomType.setImageCount(room.getType().getImageCount() + change);
+		room.setType(roomType);
 		roomService.save(room);
 	}
 

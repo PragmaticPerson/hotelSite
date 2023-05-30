@@ -19,7 +19,7 @@ public class RoomSenderController {
 
 	@GetMapping("/rooms")
 	public String getRoomsPage(Model model) {
-		var list = roomService.findAll();
+		var list = roomService.findAllRoomTypes();
 		model.addAttribute("rooms", list);
 		return "rooms";
 	}

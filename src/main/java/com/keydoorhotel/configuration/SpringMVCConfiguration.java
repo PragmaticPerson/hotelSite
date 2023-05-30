@@ -18,10 +18,6 @@ public class SpringMVCConfiguration implements WebMvcConfigurer {
 		registry.addViewController("/location").setViewName("location");
 		registry.addViewController("/photos").setViewName("photos");
 		registry.addViewController("/services").setViewName("services");
-		registry.addViewController("/rooms/single").setViewName("roomType/single");
-		registry.addViewController("/rooms/double").setViewName("roomType/double");
-		registry.addViewController("/rooms/double-eco").setViewName("roomType/double-eco");
-		registry.addViewController("/rooms/triple").setViewName("roomType/triple");
 	}
 
 	@Bean
