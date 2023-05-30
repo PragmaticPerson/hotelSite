@@ -33,7 +33,7 @@ public class SpringSecurityConfiguration {
 		http.csrf().disable()
 			.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/logout").authenticated()
+				.antMatchers("/logout", "/account").authenticated()
 				.anyRequest().permitAll()
 			)
 			.formLogin((form) -> form

@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
+
 <head th:include="fragments/head :: headFragment">
-<title id="pageTitle">Error page</title>
+<title id="pageTitle">Личный кабинет</title>
 </head>
 <body>
 	<div class="wrapper">
 		<main class="content course">
 
-			<header th:insert="fragments/sideNavbar :: navbar (page='error')"></header>
+			<header th:insert="fragments/sideNavbar :: navbar (page='home')"></header>
 			<div th:insert="fragments/mobileMenu :: mobileMenu"></div>
 
-			<div id="main_content">
-				<div class="container-bg">
-					<div class="slide-bg justify-content-center align-items-center">
-						<div class="text h-100">
-							<h1>Ой... Такой страницы нет</h1>
-						</div>
-					</div>
-				</div>
-				<div th:insert="fragments/footer :: footer"></div>
-			</div>
+			<div id="main_content"></div>
+
 		</main>
 	</div>
 

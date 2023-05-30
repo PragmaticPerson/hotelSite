@@ -40,11 +40,9 @@ public class Room {
 	}
 
 	public MobiscrollResourceDTO convertToMobiscrollResourceDTO() {
-		String name = String.format("Room %d %s", getId(), getType().getTitle());
-
 		var resource = new MobiscrollResourceDTO();
 		resource.setId(getId());
-		resource.setName(name);
+		resource.setName(getName());
 		resource.setColor("#4981d6");
 
 		return resource;
