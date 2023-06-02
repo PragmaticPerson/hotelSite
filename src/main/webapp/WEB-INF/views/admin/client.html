@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head th:insert="fragments/head :: headFragment">
+<title id="pageTitle">Страница с клиентами</title>
+</head>
+<body>
+	<script src="/js/client-admin.js"></script>
+	<div class="wrapper">
+
+		<header th:insert="fragments/sideNavbar :: navbar (page='admin')"></header>
+		<div th:insert="fragments/mobileMenu :: mobileMenu"></div>
+
+		<div id="main_content">
+			<div class="container-fluid">
+				<div class="row justify-content-center my-3">
+					<h2>Клиенты</h2>
+				</div>
+				<div class="mx-0 mx-lg-5">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr class="text-center">
+								<th scope="col">#</th>
+								<th scope="col">Имя Фамилия</th>
+								<th scope="col">Телефон</th>
+								<th scope="col">E-mail</th>
+								<th scope="col">#</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${users.empty}">
+								<td colspan="5" class="text-center">Нет доступной информации</td>
+							</tr>
+							<tr th:each="u : ${users}" class="text-center">
+
+								<td>
+									<span th:text="${u.id}"></span>
+								</td>
+								<td>
+									<div class="">
+										<input type="text" class="form-control" th:id="${'nameInput-' + u.id}" th:value="${u.name}" required disabled>
+									</div>
+								</td>
+								<td>
+									<div class="">
+										<input type="tel" class="form-control" th:id="${'phoneInput-' + u.id}" th:value="${u.phone}" required disabled>
+									</div>
+								</td>
+								<td>
+
+									<div class="">
+										<input type="email" class="form-control" th:id="${'emailInput-' + u.id}" th:value="${u.email}" required disabled>
+									</div>
+								</td>
+								<td>
+									<div>
+										<button type="button" th:id="${'editButton-' + u.id}" th:attr="onclick=|editButton('${u.id}')|" class="custom-btn ">
+											<ion-icon name="create-outline"></ion-icon>
+										</button>
+										<button type="submit" th:id="${'saveButton-' + u.id}" th:attr="onclick=|saveButton('${u.id}')|" class="custom-btn d-none">
+											<ion-icon name="save-outline"></ion-icon>
+										</button>
+										<button type="submit" th:id="${'deleteButton-' + u.id}" class="custom-btn ">
+											<ion-icon name="trash-outline" style="color: red;"></ion-icon>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div id="popup" class="popup">
+			<div class="popup-content">
+				<span id="popup-message"></span>
+			</div>
+		</div>
+	</div>
+
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script src="/js/script.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

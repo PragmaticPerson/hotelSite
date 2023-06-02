@@ -593,6 +593,12 @@ fieldset {
 	background: #C69249;
 }
 
+.custom-btn {
+	border: none;
+	font-size: 24px;
+	background-color: rgba(0, 0, 0, 0);
+}
+
 /* Mobile menu */
 #mobileLogo {
 	margin-bottom: 20px;
@@ -885,6 +891,11 @@ input[type=file]::file-selector-button:hover, #uploadImages:hover {
 	border-bottom: 2px solid #C69249;
 }
 
+.list-group {
+	max-height: 400px;
+	overflow: auto;
+}
+
 /* Booking page */
 .dropdown-toggle-my {
 	background-color: #fff;
@@ -1006,6 +1017,28 @@ input[type=file]::file-selector-button:hover, #uploadImages:hover {
 .inAdminImage {
 	max-width: 50%;
 	height: auto;
+}
+
+.popup {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	display: none;
+	z-index: 9999;
+}
+
+.popup-content {
+	text-align: center;
+}
+
+.popup-show {
+	display: block;
 }
 
 @media screen and (min-width: 1468px) {

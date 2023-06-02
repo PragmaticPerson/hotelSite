@@ -35,8 +35,16 @@ public class RoomService {
 		return roomRepository.saveAndFlush(room);
 	}
 
+	public RoomType save(RoomType room) {
+		return roomTypeRepository.saveAndFlush(room);
+	}
+
 	public Room findById(int id) {
 		return roomRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such row with id " + id));
+	}
+
+	public List<Room> findAllByRoomType(int type) {
+		return roomRepository.findAllByRoomType(type);
 	}
 
 	public RoomType findTypeById(int id) {
@@ -49,12 +57,8 @@ public class RoomService {
 				.orElseThrow(() -> new EntityNotFoundException("No such row with source " + source));
 	}
 
-	public void delete(int id) {
-		roomRepository.deleteById(id);
-	}
-
 	public List<Room> findAll() {
-		return roomRepository.findAllOrderById();
+		return roomRepository.findOrderByName();
 	}
 
 	public List<RoomType> findAllRoomTypes() {
@@ -80,5 +84,9 @@ public class RoomService {
 		}
 
 		throw new IllegalArgumentException("Adult count less or equals zero.");
+	}
+
+	public void delete(int id) {
+		roomTypeRepository.deleteById(id);
 	}
 }

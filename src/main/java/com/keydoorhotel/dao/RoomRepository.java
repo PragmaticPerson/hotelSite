@@ -24,8 +24,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 	@Query("SELECT DISTINCT (r.type) FROM Room r WHERE r NOT IN (:ids) AND r.type.maxPeople = (:count)")
 	List<RoomType> findEmptyRoomTypesByCapacity(@Param("ids") List<Room> ids, @Param("count") int peopleCount);
 
-	@Query("SELECT r FROM Room r ORDER BY r.type.id")
-	List<Room> findAllOrderById();
+	@Query("SELECT r FROM Room r ORDER BY r.id")
+	List<Room> findOrderByName();
 
 	@Query("SELECT r.type FROM Room r WHERE r.type.source = (:source)")
 	Optional<RoomType> findBySource(String source);

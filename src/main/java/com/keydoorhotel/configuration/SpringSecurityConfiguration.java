@@ -42,7 +42,11 @@ public class SpringSecurityConfiguration {
 				.successHandler(customAuthenticationSuccessHandler())
 				.permitAll()
 			)
-				.logout((logout) -> logout.permitAll().deleteCookies("JSESSIONID"));
+				.logout((logout) -> logout
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/")
+						.permitAll()
+						.deleteCookies("JSESSIONID"));
 
 		return http.build();
 	}

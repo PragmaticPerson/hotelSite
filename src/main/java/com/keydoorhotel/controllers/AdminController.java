@@ -5,8 +5,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,12 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.keydoorhotel.service.dto.MobiscrollResourceDTO;
 import com.keydoorhotel.service.dto.MobiscrollTimelineDTO;
 import com.keydoorhotel.service.dto.RoomDTO;
+import com.keydoorhotel.service.dto.UserDTO;
 import com.keydoorhotel.service.model.Reservation;
 import com.keydoorhotel.service.model.Room;
 import com.keydoorhotel.service.model.RoomType;
 import com.keydoorhotel.service.services.ImageService;
 import com.keydoorhotel.service.services.ReservationService;
 import com.keydoorhotel.service.services.RoomService;
+import com.keydoorhotel.service.services.UserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -37,13 +42,16 @@ public class AdminController {
 	private ReservationService reservationService;
 	private RoomService roomService;
 	private ImageService imageService;
+	private UserService userService;
 
 	@Autowired
-	public AdminController(ReservationService reservationService, RoomService roomService, ImageService imageService) {
+	public AdminController(ReservationService reservationService, RoomService roomService, ImageService imageService,
+			UserService userService) {
 		super();
 		this.reservationService = reservationService;
 		this.roomService = roomService;
 		this.imageService = imageService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/api/calendar/{start}/{end}")
@@ -68,7 +76,7 @@ public class AdminController {
 
 		List<MobiscrollResourceDTO> result = new ArrayList<>();
 
-		roomService.findAll().forEach(r -> result.add(r.convertToMobiscrollResourceDTO()));
+		roomService.findAll().forEach(r -> result.add(new MobiscrollResourceDTO(r)));
 
 		return result;
 	}
@@ -97,6 +105,22 @@ public class AdminController {
 			model.addAttribute("error", e.getMessage());
 			return view.getViewName();
 		}
+		return "redirect:/admin/book";
+	}
+
+	@PostMapping("/rooms/{id}/room")
+	public String postSpecialBookingHistory(@PathVariable("id") int id, @RequestParam("roomName") String name,
+			ModelMap model) {
+		var type = new RoomType();
+		type.setId(id);
+		var room = new Room();
+		room.setName(name);
+		room.setType(type);
+
+		System.out.println(room);
+
+		roomService.save(room);
+
 		return "redirect:/admin/book";
 	}
 
@@ -132,12 +156,12 @@ public class AdminController {
 
 	@GetMapping("/rooms/new")
 	public ModelAndView openViewToAddRoom(ModelMap model) {
-		model.addAttribute("room", new Room());
+		model.addAttribute("room", new RoomType());
 		return new ModelAndView("/admin/rooms/new", model);
 	}
 
 	@PostMapping("/rooms/new")
-	public String saveNewRoom(@ModelAttribute("room") Room room) {
+	public String saveNewRoom(@ModelAttribute("room") RoomType room) {
 		roomService.save(room);
 		return "redirect:/admin/rooms";
 	}
@@ -145,10 +169,13 @@ public class AdminController {
 	@GetMapping("/rooms/{id}")
 	public ModelAndView getSpecialRoom(@PathVariable("id") int id, ModelMap model) throws IOException {
 		var roomEntity = roomService.findTypeById(id);
+		var rooms = roomService.findAllByRoomType(roomEntity.getId());
 		var imageNames = imageService.getAllImageNames(roomEntity.getSource());
 
 		model.put("images", imageNames);
-		model.put("room", new RoomDTO(roomEntity));
+		model.put("roomType", new RoomDTO(roomEntity));
+		model.put("rooms", rooms);
+
 		return new ModelAndView("admin/rooms/one", model);
 	}
 
@@ -176,4 +203,24 @@ public class AdminController {
 		return "redirect:/admin/rooms/" + id;
 	}
 
+	@GetMapping("/client")
+	public String getAllClients(Model model) {
+		var users = userService.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
+
+		model.addAttribute("users", users);
+
+		return "/admin/client";
+	}
+
+	@PostMapping("/client/{id}")
+	@ResponseBody
+	public ResponseEntity<String> getAllClients(@ModelAttribute UserDTO userDTO, Model model) {
+		try {
+			userService.saveUnsecuredFields(userDTO.convertToUser());
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		return ResponseEntity.ok("Успешный запрос");
+	}
 }

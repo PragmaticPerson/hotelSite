@@ -30,4 +30,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 			+ "(:start BETWEEN r.settling AND r.eviction) OR (:end BETWEEN r.settling AND r.eviction) OR "
 			+ "(r.settling BETWEEN :start AND :end) OR (r.eviction BETWEEN :start AND :end)")
 	public List<Reservation> findAllByDateRange(@Param("start") LocalDate start, @Param("end") LocalDate end);
+
+	@Query("SELECT r FROM Reservation r WHERE r.user.id = (:id)")
+	public List<Reservation> findAllByUserId(@Param("id") int id);
 }

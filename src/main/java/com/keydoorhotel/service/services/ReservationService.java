@@ -87,6 +87,11 @@ public class ReservationService {
 		}
 	}
 
+	public List<Reservation> finaAllByUserId(int id) {
+		return repository.findAllByUserId(id).stream().peek(r -> r.setDateDiff(r.getDurationInDates()))
+				.collect(Collectors.toList());
+	}
+
 	public List<Reservation> findAllByDateRange(LocalDate start, LocalDate end) {
 		return repository.findAllByDateRange(start, end);
 	}

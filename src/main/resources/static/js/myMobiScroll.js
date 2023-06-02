@@ -14,7 +14,8 @@ $.ajax({
 });
 
 mobiscroll.setOptions({
-	theme: 'ios',
+    locale: mobiscroll.localeRu,
+    theme: 'windows',
 	themeVariant: 'light'
 });
 

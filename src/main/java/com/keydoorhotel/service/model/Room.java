@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.keydoorhotel.service.dto.MobiscrollResourceDTO;
-
 @Entity
 @Table(name = "room")
 public class Room {
@@ -37,15 +35,6 @@ public class Room {
 		this.id = id;
 		this.name = name;
 		this.type = type;
-	}
-
-	public MobiscrollResourceDTO convertToMobiscrollResourceDTO() {
-		var resource = new MobiscrollResourceDTO();
-		resource.setId(getId());
-		resource.setName(getName());
-		resource.setColor("#4981d6");
-
-		return resource;
 	}
 
 	public int getId() {

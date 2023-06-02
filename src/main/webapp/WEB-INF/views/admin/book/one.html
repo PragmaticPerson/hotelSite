@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 
 <head th:include="fragments/head :: headFragment">
-<title id="pageTitle">Edit reservation</title>
+<title id="pageTitle">Редактирование записи бронирования</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -12,7 +12,7 @@
 
 		<div id="main_content">
 			<h2 class="text-center my-4">Редактирование записи бронирования</h2>
-			<div class="d-flex justify-content-center m-3">
+			<div class="d-flex justify-content-center m-3 m-lg-0">
 				<div th:if="${error != null}">
 					<div class="p-3 mb-2 bg-warning text-dark">
 						<span th:text="${error}"></span>
@@ -22,9 +22,9 @@
 				<form action="#" th:action="@{/admin/book/{id}(id=${reservation.id})}" th:object="${reservation}" method="post">
 					<div class="row mx-0">
 						<div class="col-lg-6 col-12">
-							<div class="container-fluid">
+							<div class="container-fluid px-0">
 								<div class="row my-1">
-									<div class="col-3 col-md-5">
+									<div class="col-4 col-md-5">
 										<label class="col-form-label">id:</label>
 									</div>
 									<div class="col">
@@ -33,7 +33,7 @@
 								</div>
 								<div class="row my-1">
 									<div class="col-4 col-md-5">
-										<label class="col-form-label">Account:</label>
+										<label class="col-form-label">Клиент:</label>
 									</div>
 									<div class="col">
 										<input type="hidden" th:field="*{user.id}" required />
@@ -42,7 +42,7 @@
 								</div>
 								<div class="row my-1">
 									<div class="col-4 col-md-5">
-										<label class="col-form-label">Adult count:</label>
+										<label class="col-form-label">Кол-во взрослых:</label>
 									</div>
 									<div class="col">
 										<input class="form-control" type="text" th:field="*{adultCount}" required />
@@ -50,7 +50,7 @@
 								</div>
 								<div class="row my-1">
 									<div class="col-4 col-md-5">
-										<label class="col-form-label">Child count:</label>
+										<label class="col-form-label">Кол-во детей:</label>
 									</div>
 									<div class="col">
 										<input class="form-control" type="text" th:field="*{childCount}" required />
@@ -58,7 +58,7 @@
 								</div>
 								<div class="row my-1">
 									<div class="col-4 col-md-5">
-										<label class="col-form-label">Settling:</label>
+										<label class="col-form-label">Заселение:</label>
 									</div>
 									<div class="col">
 										<input class="form-control" type="text" th:field="*{settling}" required />
@@ -66,7 +66,7 @@
 								</div>
 								<div class="row my-1">
 									<div class="col-4 col-md-5">
-										<label class="col-form-label">Eviction:</label>
+										<label class="col-form-label">Выселение:</label>
 									</div>
 									<div class="col">
 										<input class="form-control" type="text" th:field="*{eviction}" required />
@@ -74,7 +74,7 @@
 								</div>
 								<div class="row my-1">
 									<div class="col-4 col-md-5">
-										<label class="col-form-label">Total price:</label>
+										<label class="col-form-label">Общая стоимость:</label>
 									</div>
 									<div class="col">
 										<input class="form-control" type="text" th:field="*{totalPrice}" required />
@@ -83,17 +83,17 @@
 							</div>
 						</div>
 
-						<div class="col-lg-6 col-12 px-5 px-lg-0">
+						<div class="col-lg-6 col-12">
 							<div class="container-fluid">
-								<div class="row my-2">
-									<div class="col">
-										<label class="col-form-label">Rooms:</label>
-									</div>
-									<div class="col">
-										<select class="form-select" th:field="*{rooms}" multiple="multiple" required>
-											<option value="-1" hidden="">Please select...</option>
-											<option th:each="room : ${rooms}" th:value="${room.id}" th:text="${'Type: ' + room.type.id + '; ' + room.type.title}"></option>
-										</select>
+								<div class="row">
+									<label class="col-form-label">Комнаты:</label>
+									<div class="list-group w-100">
+										<th:block th:each="room : ${rooms}">
+											<label class="list-group-item mb-0">
+												<input class="form-check-input" type="checkbox" th:checked="${#lists.contains(reservation.rooms, room)}" name="rooms" th:field="*{rooms}" th:value="${room.id}">
+												<span th:text="${room.name + ', ' + room.type.title}"></span>
+											</label>
+										</th:block>
 									</div>
 								</div>
 
@@ -108,5 +108,6 @@
 			</div>
 		</div>
 	</div>
+	<script src="/js/script.js"></script>
 </body>
 </html>

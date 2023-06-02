@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 
 <head th:include="fragments/head :: headFragment">
-<title id="pageTitle">Add room</title>
+<title id="pageTitle">Создание комнаты</title>
 </head>
 <body>
 	<div class="wrapper">
@@ -21,7 +21,7 @@
 				</div>
 				<form class="w-50" action="#" th:action="@{/admin/rooms/new}" th:object="${room}" method="post">
 					<div class="row my-1">
-						<div class="col">
+						<div class="col-4 col-md-5">
 							<label class="col-form-label">id:</label>
 						</div>
 						<div class="col">
@@ -29,41 +29,58 @@
 						</div>
 					</div>
 					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Title:</label>
+						<div class="col-4 col-md-5">
+							<label class="col-form-label">Название:</label>
 						</div>
 						<div class="col">
 							<input class="form-control" type="text" th:field="*{title}" required />
 						</div>
 					</div>
 					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Image:</label>
+						<div class="col-4 col-md-5">
+							<label class="col-form-label">Путь:</label>
 						</div>
 						<div class="col">
-							<input class="form-control" type="file" th:field="*{image}" required />
+							<input class="form-control" type="text" th:field="*{source}" required />
 						</div>
 					</div>
 					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Max people:</label>
+						<div class="col-5">
+							<label class="col-form-label">Макс. людей:</label>
 						</div>
 						<div class="col">
 							<input class="form-control" type="text" th:field="*{maxPeople}" required />
 						</div>
 					</div>
 					<div class="row my-1">
-						<div class="col">
-							<label class="col-form-label">Price:</label>
+						<div class="col-5">
+							<label class="col-form-label">Цена:</label>
 						</div>
 						<div class="col">
 							<input class="form-control" type="text" th:field="*{price}" required />
 						</div>
 					</div>
+					<div class="row my-1">
+						<div class="col-5">
+							<label class="col-form-label">Панорама URL ID:</label>
+						</div>
+						<div class="col">
+							<input class="form-control" type="text" th:field="*{panoramaUrlId}" required />
+						</div>
+					</div>
+					<div class="row my-1">
+						<div class="col-5">
+							<label class="col-form-label">Описание:</label>
+						</div>
+						<div class="col">
+							<textarea class="form-control" rows="5" th:text="*{description}" required>
+										</textarea>
+						</div>
+					</div>
 
 					<div class="form-group row">
-						<input class="btn m-1 btn-success col" type="submit" value="Save" />
-						<input class="btn m-1 btn-secondary col" type="reset" value="Reset" />
+						<input class="btn m-1 btn-success col" type="submit" value="Сохранить" />
+						<input class="btn m-1 btn-secondary col" type="reset" value="Обнулить" />
 					</div>
 				</form>
 			</div>

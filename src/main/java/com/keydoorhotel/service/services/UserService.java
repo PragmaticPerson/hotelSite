@@ -2,10 +2,10 @@ package com.keydoorhotel.service.services;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +68,21 @@ public class UserService implements UserDetailsService {
 		return encoder.matches(oldPass, user.getPassword());
 	}
 
-	public User findById(int id) {
-		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("No entity with id " + id));
+	public List<User> findAll() {
+		return repository.findAll();
+	}
+
+	public User findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 
 	public User save(User user) {
 		return repository.save(user);
+	}
+
+	public void saveUnsecuredFields(User user) {
+		repository.saveUnsecuredFields(user.getId(), user.getName(), user.getSurname(), user.getPhone(),
+				user.getEmail());
 	}
 
 	@Transactional
